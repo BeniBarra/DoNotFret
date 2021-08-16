@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoNotFret", "DoNotFret\DoNotFret.csproj", "{EA230139-A64B-4944-A07B-2DC9D9828934}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA230139-A64B-4944-A07B-2DC9D9828934}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA230139-A64B-4944-A07B-2DC9D9828934}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA230139-A64B-4944-A07B-2DC9D9828934}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA230139-A64B-4944-A07B-2DC9D9828934}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {75585851-5DFE-4A53-A56F-D034E8EA2496}
+	EndGlobalSection
+EndGlobal
