@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DoNotFret.Models
 {
-    public class StringInstruments
+    public class StringInstrument
     {
         public string Name { get; set; }
         public int Strings { get; set; } = 4;

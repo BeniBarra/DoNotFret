@@ -1,1 +1,21 @@
-﻿<h1>All categories are listed here.</h1>
+﻿@model IEnumerable<DoNotFret.Models.WindInstrument>
+
+<h2>All Instruments Here:</h2>
+
+
+<h4>Wind Instruments</h4>
+<ul>
+	@foreach (var wind in Model)
+	{
+		<li><a asp-controller="Products" asp-action="WindInstruments" asp-route-name=@wind.Name asp-route-material=@wind.Material>@wind.Name</a></li>
+	}
+</ul>
+
+
+@*<h4>String Instruments</h4>
+<ul>
+@foreach (var strings in Model.StringInstruments)
+{
+	<li>The @strings.Name, has @strings.Strings strings</li>
+}
+</ul>*@

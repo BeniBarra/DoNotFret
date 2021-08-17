@@ -14,23 +14,45 @@ namespace DoNotFret.Controllers
             return View();
         }
 
-        public IActionResult WindInstrument()
+        public IActionResult WindInstrument(string name, string mat)
         {
             WindInstrument panFlute = new WindInstrument()
             {
-                Name = "Pan Flute",
-                Material = "Wood"
+                Name = name,
+                Material = mat
             };
 
             return View(panFlute);
         }
+
         public IActionResult WindInstruments()
         {
-            return View();
+            List<WindInstrument> winds = new List<WindInstrument>();
+            winds.Add(new WindInstrument() { Name = "Pan Flute", Material = "wood"});
+            winds.Add(new WindInstrument() { Name = "Trumpet", Material = "Brass" });
+            winds.Add(new WindInstrument() { Name = "Clarinet", Material = "wood" });
+
+            return View(winds);
         }
+
+        public IActionResult StringInstrument(string name, int stringCount)
+        {
+            StringInstrument guitar = new StringInstrument()
+            {
+                Name = name,
+                Strings = stringCount
+            };
+            return View(guitar);
+        }
+
         public IActionResult StringInstruments()
         {
-            return View();
+            List<StringInstrument> strings = new List<StringInstrument>();
+            strings.Add(new StringInstrument() { Name = "Bass", Strings = 4 });
+            strings.Add(new StringInstrument() { Name = "Mandalin", Strings = 8 });
+            strings.Add(new StringInstrument() { Name = "Theorbo", Strings = 11 });
+
+            return View(strings);
         }
     }
 }
