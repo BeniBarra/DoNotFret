@@ -1,1 +1,10 @@
-﻿
+﻿@model IEnumerable<DoNotFret.Models.StringInstrument>
+
+
+<h4>String Instruments</h4>
+<ul>
+	@foreach (var strings in Model)
+	{
+		<li><a asp-controller="Products" asp-action="StringInstruments" asp-route-name=@strings.Name asp-route-stringCount=@strings.Strings>@strings.Name</a></li>
+	}
+</ul>

@@ -1,21 +1,18 @@
-﻿@model IEnumerable<DoNotFret.Models.WindInstrument>
+﻿@model DoNotFret.Models.Instruments
 
-<h2>All Instruments Here:</h2>
-
+<h2>All Insturments</h2>
+<h3>String Instruments</h3>
+<ul>
+	@foreach (var strings in Model.StringInstruments)
+	{
+		<li><a asp-controller="Products" asp-action="StringInstruments" asp-route-name=@strings.Name asp-route-stringCount=@strings.Strings>@strings.Name</a></li>
+	}
+</ul>
 
 <h4>Wind Instruments</h4>
 <ul>
-	@foreach (var wind in Model)
+	@foreach (var wind in Model.WindInstruments)
 	{
 		<li><a asp-controller="Products" asp-action="WindInstruments" asp-route-name=@wind.Name asp-route-material=@wind.Material>@wind.Name</a></li>
 	}
 </ul>
-
-
-@*<h4>String Instruments</h4>
-<ul>
-@foreach (var strings in Model.StringInstruments)
-{
-	<li>The @strings.Name, has @strings.Strings strings</li>
-}
-</ul>*@

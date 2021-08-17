@@ -7,11 +7,21 @@ using System.Threading.Tasks;
 
 namespace DoNotFret.Controllers
 {
+
     public class ProductsController : Controller
     {
+
+        
         public IActionResult Index()
         {
-            return View();
+            Instruments listAll = new Instruments();
+            listAll.StringInstruments.Add(new StringInstrument() { Name = "Bass", Strings = 4 });
+            listAll.StringInstruments.Add(new StringInstrument() { Name = "Mandalin", Strings = 8 });
+            listAll.StringInstruments.Add(new StringInstrument() { Name = "Theorbo", Strings = 11 });
+            listAll.WindInstruments.Add(new WindInstrument() { Name = "Pan Flute", Material = "wood" });
+            listAll.WindInstruments.Add(new WindInstrument() { Name = "Trumpet", Material = "Brass" });
+            listAll.WindInstruments.Add(new WindInstrument() { Name = "Clarinet", Material = "wood" });
+            return View(listAll);
         }
 
         public IActionResult WindInstrument(string name, string mat)
