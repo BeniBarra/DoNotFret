@@ -1,1 +1,15 @@
-﻿<h2>This is the Home Page of Do Not Fret</h2>
+﻿@model IEnumerable<DoNotFret.Models.Instruments>
+
+<h1>This is the Home Page of Do Not Fret</h1>
+
+	@foreach (var music in Model)
+	{
+		<h4><a asp-controller="Home" asp-action="Edit" asp-route-id="@music.Id">@music.Name</a></h4>
+<ul>
+		<li>@music.InstrumentType</li>
+		<li>@music.Brand</li>
+		<li>@music.Material</li>
+		<li>@music.Description</li>
+</ul>
+		<br />
+	}
