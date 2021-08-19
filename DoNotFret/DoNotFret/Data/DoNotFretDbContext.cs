@@ -9,7 +9,7 @@ namespace DoNotFret.Data
 {
     public class DoNotFretDbContext : DbContext 
     {
-        public DbSet<Instruments> Instrument { get; set; }
+        public DbSet<Instrument> Instrument { get; set; }
 
         //constructor
         public DoNotFretDbContext(DbContextOptions options) : base(options)
@@ -20,8 +20,8 @@ namespace DoNotFret.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Instruments>().HasData(
-                new Instruments
+            modelBuilder.Entity<Instrument>().HasData(
+                new Instrument
                 { 
                     Id = 1, 
                     Name = "Guitar", 
@@ -31,8 +31,8 @@ namespace DoNotFret.Data
                     InstrumentType = InstrumentType.String
                 });
 
-            modelBuilder.Entity<Instruments>().HasData(
-                new Instruments
+            modelBuilder.Entity<Instrument>().HasData(
+                new Instrument
                 {
                     Id = 2,
                     Name = "Bass",

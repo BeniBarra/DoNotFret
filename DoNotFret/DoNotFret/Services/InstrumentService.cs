@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DoNotFret.Services
 {
-    public class InstrumentService : I_Instruments
+    public class InstrumentService : I_Instrument
     {
         private DoNotFretDbContext _context;
 
@@ -17,30 +17,32 @@ namespace DoNotFret.Services
             _context = context;
         }
 
-        public async Task<Instruments> Create(Instruments instrument)
+        public async Task<Instrument> Create(Instrument instrument)
         {
             _context.Entry(instrument).State = Microsoft.EntityFrameworkCore.EntityState.Added;
             await _context.SaveChangesAsync();
             return instrument;
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            Instrument instrument = await _context.Instrument.FindAsync(id);
+            _context.Entry(instrument).State = EntityState.Deleted;
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Instruments>> GetAll()
+        public async Task<List<Instrument>> GetAll()
         {
             return await _context.Instrument.ToListAsync();
         }
 
-        public async Task<Instruments> GetOne(int id)
+        public async Task<Instrument> GetOne(int id)
         {
-            Instruments instruments = await _context.Instrument.FindAsync(id);
+            Instrument instruments = await _context.Instrument.FindAsync(id);
             return instruments;
         }
 
-        public async Task<Instruments> Update(Instruments instruments)
+        public async Task<Instrument> Update(Instrument instruments)
         {
             _context.Entry(instruments).State = EntityState.Modified;
             await _context.SaveChangesAsync();

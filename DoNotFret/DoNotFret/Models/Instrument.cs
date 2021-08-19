@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DoNotFret.Models
 {
-    public class Instruments
+    public class Instrument
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -15,7 +15,6 @@ namespace DoNotFret.Models
         public InstrumentType InstrumentType { get; set; }
 
     }
-
     public enum InstrumentType
     {
         String,

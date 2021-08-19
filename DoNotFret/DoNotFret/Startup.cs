@@ -33,7 +33,7 @@ namespace DoNotFret
                 options.UseSqlServer(connectionString);
             });
 
-            services.AddTransient<I_Instruments, InstrumentService>();
+            services.AddTransient<I_Instrument, InstrumentService>();
 
             services.AddMvc();
         }

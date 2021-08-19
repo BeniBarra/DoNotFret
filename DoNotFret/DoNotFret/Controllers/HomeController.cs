@@ -10,14 +10,14 @@ namespace DoNotFret.Controllers
 {
     public class HomeController : Controller //inhertics Controller
     {
-        private readonly I_Instruments _service;
+        private readonly I_Instrument _service;
 
-        public HomeController(I_Instruments instruments)
+        public HomeController(I_Instrument instruments)
         {
             _service = instruments;
         }
 
-        public async Task<ActionResult<IEnumerable<Instruments>>> Index()
+        public async Task<ActionResult<IEnumerable<Instrument>>> Index()
         {
             var list = await _service.GetAll();
             return View(list);
@@ -30,7 +30,7 @@ namespace DoNotFret.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(Instruments instruments)
+        public async Task<IActionResult> Add(Instrument instruments)
         {
             await _service.Create(instruments);
             if (!ModelState.IsValid) { return View(); }
@@ -40,16 +40,23 @@ namespace DoNotFret.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            Instruments instrument = await _service.GetOne(id);
+            Instrument instrument = await _service.GetOne(id);
             return View(instrument);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(Instruments instrument)
+        public async Task<IActionResult> Update(Instrument instrument)
         {
             await _service.Update(instrument);
             if (!ModelState.IsValid) { return View(); }
             return Content("Instrument was updated");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _service.Delete(id);
+            return Content("Your Instrument has been deleted from the system");
         }
     }
 }

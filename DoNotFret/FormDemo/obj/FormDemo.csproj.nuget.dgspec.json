@@ -1,21 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\locoq\\repo\\MVCProject\\DoNotFret\\FormDemo\\FormDemo.csproj": {}
+    "C:\\Users\\Jona\\source\\repos\\MVCProject\\DoNotFret\\FormDemo\\FormDemo.csproj": {}
   },
   "projects": {
-    "C:\\Users\\locoq\\repo\\MVCProject\\DoNotFret\\FormDemo\\FormDemo.csproj": {
+    "C:\\Users\\Jona\\source\\repos\\MVCProject\\DoNotFret\\FormDemo\\FormDemo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\locoq\\repo\\MVCProject\\DoNotFret\\FormDemo\\FormDemo.csproj",
+        "projectUniqueName": "C:\\Users\\Jona\\source\\repos\\MVCProject\\DoNotFret\\FormDemo\\FormDemo.csproj",
         "projectName": "FormDemo",
-        "projectPath": "C:\\Users\\locoq\\repo\\MVCProject\\DoNotFret\\FormDemo\\FormDemo.csproj",
-        "packagesPath": "C:\\Users\\locoq\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\locoq\\repo\\MVCProject\\DoNotFret\\FormDemo\\obj\\",
+        "projectPath": "C:\\Users\\Jona\\source\\repos\\MVCProject\\DoNotFret\\FormDemo\\FormDemo.csproj",
+        "packagesPath": "C:\\Users\\Jona\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Jona\\source\\repos\\MVCProject\\DoNotFret\\FormDemo\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
         "configFilePaths": [
-          "C:\\Users\\locoq\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Jona\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"

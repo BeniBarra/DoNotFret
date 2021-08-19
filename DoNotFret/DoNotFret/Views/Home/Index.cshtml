@@ -1,15 +1,19 @@
-﻿@model IEnumerable<DoNotFret.Models.Instruments>
+﻿@model IEnumerable<DoNotFret.Models.Instrument>
 
-<h1>This is the Home Page of Do Not Fret</h1>
-
+<h1>Home Page</h1>
+<a asp-controller="Home" asp-action="Add">Add an instrument to inventory</a>
 	@foreach (var music in Model)
 	{
-		<h4><a asp-controller="Home" asp-action="Edit" asp-route-id="@music.Id">@music.Name</a></h4>
+	<form asp-controller="Home" asp-action="Delete" asp-route-id="@music.Id" method="get">		
+	<h4><a asp-controller="Home" asp-action="Edit" asp-route-id="@music.Id">@music.Name</a></h4>
 <ul>
 		<li>@music.InstrumentType</li>
 		<li>@music.Brand</li>
 		<li>@music.Material</li>
 		<li>@music.Description</li>
 </ul>
-		<br />
+		<input type="hidden" name="Id" value="@music.Id" />
+		<button type="submit" >Delete</button>
+<br />
+	</form>
 	}
