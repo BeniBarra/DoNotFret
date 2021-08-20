@@ -1,6 +1,7 @@
 ﻿using DoNotFret.Models;
 using DoNotFret.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -24,12 +25,14 @@ namespace DoNotFret.Controllers
             return View(list);
         }
 
+        [Authorize(Roles ="Admin")]
         [HttpGet]
         public IActionResult Add()
         {
             return View();
         }
 
+        [Authorize(Roles ="Admin")]
         [HttpPost]
         public async Task<IActionResult> Add(Instrument instruments)
         {
@@ -38,7 +41,7 @@ namespace DoNotFret.Controllers
             return Content("Instrument was added");
         }
 
-        [Authorize(Roles="Admin")]
+        [Authorize(Roles="Admin, Technician")]
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -46,6 +49,7 @@ namespace DoNotFret.Controllers
             return View(instrument);
         }
 
+        [Authorize(Roles ="Admin, Technician")]
         [HttpPost]
         public async Task<IActionResult> Update(Instrument instrument)
         {
@@ -53,12 +57,36 @@ namespace DoNotFret.Controllers
             if (!ModelState.IsValid) { return View(); }
             return Content("Instrument was updated");
         }
-
+        [Authorize(Roles ="Admin")]
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             await _service.Delete(id);
             return Content("Your Instrument has been deleted from the system");
+        }
+
+        public IActionResult RememberName(string name)
+        {
+            if (name != null)
+            {
+                //Set a cookie with the name in it.
+                CookieOptions cookieOptions = new CookieOptions();
+                // Cookie will expire in 7 days
+                cookieOptions.Expires = new DateTimeOffset(DateTime.Now.AddDays(7));
+                HttpContext.Response.Cookies.Append("name", name, cookieOptions);
+
+                return Content("Cookie for name saved.");
+            }
+            return Content("Please provide a name");
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult IAm()
+        {
+            // app.get
+            string name = HttpContext.Request.Cookies["name"];
+            ViewData["name"] = name;
+            return View();
         }
     }
 }

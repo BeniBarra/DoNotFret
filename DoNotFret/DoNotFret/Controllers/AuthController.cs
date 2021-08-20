@@ -32,7 +32,7 @@ namespace DoNotFret.Controllers
         public async Task<ActionResult<UserDto>> Signup(RegisterUser data)
         {
             // Hardcode the role
-            data.Roles = new List<string> { "admin" };
+            data.Roles = new List<string> { "user"};
 
             // Create a user with that service
             var user = await _userService.Register(data, this.ModelState);
@@ -53,7 +53,7 @@ namespace DoNotFret.Controllers
                 this.ModelState.AddModelError(String.Empty, "Invalid Login, Please try again.");
                 return RedirectToAction("Index");
             }
-            return Redirect("/");
+            return Redirect("/home/iam");
         }
         //Token validation
         //Check with the user service to see if we're in the system.

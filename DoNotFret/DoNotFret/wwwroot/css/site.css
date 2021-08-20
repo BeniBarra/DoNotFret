@@ -1,0 +1,42 @@
+﻿body {
+	background: rgb(77,193,184);
+	background: radial-gradient(circle, rgba(77,193,184,1) 0%, rgba(91,201,200,1) 35%, rgba(61,189,187,1) 59%, rgba(20,143,141,1) 100%);
+	font-family: Calibri;
+	height: 100vh;
+	width: 100vw;
+	color: antiquewhite;
+}
+
+header {
+	background: antiquewhite;
+	color: rgba(89,167,171,1);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 80vw;
+	border-radius: 25px;
+}
+
+.footer {
+	background: black;
+	position: fixed;
+	bottom: 0rem;
+	width: 100vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.link-container {
+	text-decoration: none;
+	color: black;
+	display: inline;
+}
+
+li {
+	font-size: 1.2rem;
+}
+
+.list-element {
+display: none;
+}
