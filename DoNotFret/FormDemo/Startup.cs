@@ -10,10 +10,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FormDemo.Models;
+using DoNotFret.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace FormDemo
 {
-
     public class Startup
     {
         public IConfiguration Configuration { get; }
@@ -22,6 +24,7 @@ namespace FormDemo
         {
             Configuration = config;
         }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
@@ -40,6 +43,7 @@ namespace FormDemo
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

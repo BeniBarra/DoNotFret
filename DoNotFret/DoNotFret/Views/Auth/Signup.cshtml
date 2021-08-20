@@ -1,0 +1,12 @@
+﻿<h2>Create a DoNotFret Account</h2>
+
+<form method="post" action="/Auth/signup">
+	<div><input name="username" placeholder="username"/></div>
+	<div><input name="password" type="password" placeholder="password"/></div>
+	<div><input name="email" placeholder="email"/></div>
+	<div><input name="phonenumber" placeholder="123-456-7890"/></div>
+	<input  type="submit" value="Sign Up"/>
+</form>
+
+@*provides any error message that we have.*@
+<div asp-validation-summary="All"></div>
