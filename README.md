@@ -65,7 +65,10 @@ Project scaffolding
 - Created Delete controller, service and view.
 - Created README.md file
 - Added a create link to home page which redirects to Add view.
-
+### Day Four:
+- Added Identities and Roles to the application.
+- Updated services to include a return button, as well as buttons to sign in and register.
+- Wired up CSS and added additional view pages.
 ## Room for Improvement
 - CSS
 
