@@ -1,8 +1,12 @@
+using AuthDemo.Auth.Services;
+using AuthDemo.Auth.Services.Interfaces;
 using DoNotFret.Data;
+using DoNotFret.Models;
 using DoNotFret.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +15,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 
 
 namespace DoNotFret
@@ -35,7 +38,17 @@ namespace DoNotFret
 
             services.AddTransient<I_Instrument, InstrumentService>();
 
+            services.AddIdentity<AuthUser, IdentityRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+
+            }).AddEntityFrameworkStores<DoNotFretDbContext>();
+
             services.AddMvc();
+            services.AddAuthentication();
+            services.AddAuthorization();
+
+            services.AddTransient<IUserService, IdentityUserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +62,8 @@ namespace DoNotFret
             // Static files is for when we want to bring in CSS files.
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

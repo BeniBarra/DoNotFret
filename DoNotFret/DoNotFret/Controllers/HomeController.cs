@@ -1,5 +1,6 @@
 ﻿using DoNotFret.Models;
 using DoNotFret.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,7 @@ namespace DoNotFret.Controllers
             return Content("Instrument was added");
         }
 
+        [Authorize(Roles="Admin")]
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
