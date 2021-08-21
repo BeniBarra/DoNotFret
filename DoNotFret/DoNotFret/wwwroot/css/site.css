@@ -12,33 +12,116 @@ header {
 	background: antiquewhite;
 	color: rgba(89,167,171,1);
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	width: 100%;
 	height: 10rem;
-	font-size: 1rem;
+	font-family: 'Oswald', sans-serif;
+	box-shadow: black 0px .5px 12px
+}
+
+#headerText {
+	font-size: 1.75rem;
+	margin-top: -.75em;
+	  text-shadow: #260707c3 1.25px 1.25px 1px;
+  -webkit-font-smoothing: antialiased;
+}
+
+#headerSubtitle {
+	font-size: 2rem;
+	margin-top: -2.5em;
+	text-shadow: #260707c3 1.15px 1.15px .35px;
+	-webkit-font-smoothing: antialiased;
+}
+
+article {
+	margin: 0 auto 0 auto;
+	width: 90%;
+}
+
+.mainTitleText {
+	text-shadow: #260707c3 1.15px 1.15px 2px;
+	-webkit-font-smoothing: antialiased;
+}
+
+#link-container {
+	background: rgb(250 235 215 / 0.15);
+	padding: 8px 8px 8px 8px;
+	width: fit-content;
+	box-shadow: #808080 0px 0px 8px;
+}
+
+.navLinks {
+	text-decoration: none;
+	color: inherit;
+	display: inline;
+	text-shadow: #260707c3 1.15px 1.15px .35px;
+	-webkit-font-smoothing: antialiased;
+	margin-right: 1em;
+	transition: 150ms;
+}
+
+.navLinks:hover {
+	text-decoration: none;
+	color: #148f8d;
+	display: inline;
+	transition: 300ms;
+}
+
+li {
+	font-size: 1.2rem;
+	text-shadow: #260707c3 1.15px 1.15px .35px;
+	-webkit-font-smoothing: antialiased;
+}
+
+#cardContainer {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.list-element {
+	background: rgb(250 235 215 / 0.15);
+	margin-top: 24px;
+	padding: 8px 8px 8px 8px;
+	min-width: 400px;
+	width: fit-content;
+	box-shadow: #808080 0px 0px 8px;
+}
+
+#listTitle {
+	text-decoration: none;
+	color: inherit;
+	text-shadow: #260707c3 1.15px 1.5px 3px;
+	-webkit-font-smoothing: antialiased;
+}
+
+#listButton {
+	padding: 4px 8px 4px 8px;
+	background: antiquewhite;
+	font-family: 'Oswald', sans-serif;
+	font-weight: 500;
+	transition: 150ms;
+}
+
+#listButton:hover {
+	color:inherit;
+	padding: 4px 8px 4px 8px;
+	transition: 300ms ease-out;
+	background: #148f8d;
+	font-family: 'Oswald', sans-serif;
+	font-weight: 500;
 }
 
 .footer {
 	background: black;
 	position: fixed;
 	bottom: 0rem;
+	height:36px;
 	width: 100vw;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-}
-
-.link-container {
-	text-decoration: none;
-	color: inherit;
-	display: inline;
-}
-
-li {
-	font-size: 1.2rem;
-}
-
-.list-element {
-display: none;
 }

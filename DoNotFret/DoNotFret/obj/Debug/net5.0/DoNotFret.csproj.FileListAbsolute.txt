@@ -152,3 +152,11 @@ C:\Users\Jona\source\repos\MVCProject\DoNotFret\DoNotFret\bin\Debug\net5.0\Micro
 C:\Users\Jona\source\repos\MVCProject\DoNotFret\DoNotFret\obj\Debug\net5.0\Razor\Views\Auth\Index.cshtml.g.cs
 C:\Users\Jona\source\repos\MVCProject\DoNotFret\DoNotFret\obj\Debug\net5.0\Razor\Views\Auth\Signup.cshtml.g.cs
 C:\Users\Jona\source\repos\MVCProject\DoNotFret\DoNotFret\obj\Debug\net5.0\Razor\Views\Home\IAm.cshtml.g.cs
+C:\Users\locoq\repo\MVCProject\DoNotFret\DoNotFret\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\locoq\repo\MVCProject\DoNotFret\DoNotFret\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\locoq\repo\MVCProject\DoNotFret\DoNotFret\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\locoq\repo\MVCProject\DoNotFret\DoNotFret\bin\Debug\net5.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\locoq\repo\MVCProject\DoNotFret\DoNotFret\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\locoq\repo\MVCProject\DoNotFret\DoNotFret\obj\Debug\net5.0\Razor\Views\Auth\Index.cshtml.g.cs
+C:\Users\locoq\repo\MVCProject\DoNotFret\DoNotFret\obj\Debug\net5.0\Razor\Views\Auth\Signup.cshtml.g.cs
+C:\Users\locoq\repo\MVCProject\DoNotFret\DoNotFret\obj\Debug\net5.0\Razor\Views\Home\IAm.cshtml.g.cs
