@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DoNotFret.Migrations
 {
-    public partial class Roles : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,6 +44,23 @@ namespace DoNotFret.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Instrument",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Brand = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Material = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InstrumentType = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Instrument", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -155,17 +172,21 @@ namespace DoNotFret.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "admin", "00000000-0000-0000-0000-000000000000", "Admin", "ADMIN" });
+                values: new object[,]
+                {
+                    { "admin", "00000000-0000-0000-0000-000000000000", "Admin", "ADMIN" },
+                    { "technician", "00000000-0000-0000-0000-000000000000", "Technician", "TECHNICIAN" },
+                    { "user", "00000000-0000-0000-0000-000000000000", "User", "USER" }
+                });
 
             migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "technician", "00000000-0000-0000-0000-000000000000", "Technician", "TECHNICIAN" });
-
-            migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "user", "00000000-0000-0000-0000-000000000000", "User", "USER" });
+                table: "Instrument",
+                columns: new[] { "Id", "Brand", "Description", "InstrumentType", "Material", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Ibanez", "Natural Wood Finish, 6 string electric guitar", 0, "Basswood", "Guitar" },
+                    { 2, "Rickenbacker", "Cherry Red, 4 string electric bass", 0, "Eastern hardrock Maple", "Bass" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -223,6 +244,9 @@ namespace DoNotFret.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Instrument");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
