@@ -1,7 +1,7 @@
 ﻿body {
 	background: rgb(77,193,184);
 	background: radial-gradient(circle, rgba(77,193,184,1) 0%, rgba(91,201,200,1) 35%, rgba(61,189,187,1) 59%, rgba(20,143,141,1) 100%);
-	font-family: Calibri;
+	font-family: 'Cabin', sans-serif;
 	height: 100vh;
 	width: auto;
 	color: antiquewhite;
@@ -15,7 +15,7 @@ header {
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-	height: 8vw;
+	height: 10rem;
 	font-size: 1rem;
 }
 
