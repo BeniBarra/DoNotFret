@@ -8,32 +8,33 @@
 </div>
 
 <form asp-controller="Home" asp-action="Update" method="post">
-    <label>
-        <span>Type</span>
-        <select asp-for="@Model.InstrumentType" asp-items="Html.GetEnumSelectList<InstrumentType>()"></select>
-    </label>
+	<label>
+		<span>Type</span>
+		<input asp-for="@Model.InstrumentType" />
+	</label>
 
-    <label>
-        <span>Instrument Name</span>
-        <input asp-for="@Model.Name" />
-    </label>
+	<label>
+		<span>Instrument Name</span>
+		<input asp-for="@Model.Name" />
+	</label>
 
-    <label>
-        <span>Brand</span>
-        <input asp-for="@Model.Brand" />
-    </label>
+	<label>
+		<span>Brand</span>
+		<input asp-for="@Model.Brand" />
+	</label>
 
-    <label>
-        <span>Material</span>
-        <input asp-for="@Model.Material" />
-    </label>
+	<label>
+		<span>Material</span>
+		<input asp-for="@Model.Material" />
+	</label>
 
-    <label>
-        <span>Description</span>
-        <textarea asp-for="@Model.Description"></textarea>
-    </label>
+	<label>
+		<span>Description</span>
+		<textarea asp-for="@Model.Description"></textarea>
+	</label>
 
-    <input type="hidden" name="Id" value="@Model.Id" />
+	<input type="hidden" name="Id" value="@Model.Id" />
 
-    <button type="submit">Save</button>
+	<button type="submit">Save</button>
 </form>
+

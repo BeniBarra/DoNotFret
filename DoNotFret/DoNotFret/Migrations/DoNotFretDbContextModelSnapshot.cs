@@ -97,8 +97,8 @@ namespace DoNotFret.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("InstrumentType")
-                        .HasColumnType("int");
+                    b.Property<string>("InstrumentType")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Material")
                         .HasColumnType("nvarchar(max)");
@@ -116,7 +116,7 @@ namespace DoNotFret.Migrations
                             Id = 1,
                             Brand = "Ibanez",
                             Description = "Natural Wood Finish, 6 string electric guitar",
-                            InstrumentType = 0,
+                            InstrumentType = "String",
                             Material = "Basswood",
                             Name = "Guitar"
                         },
@@ -125,7 +125,7 @@ namespace DoNotFret.Migrations
                             Id = 2,
                             Brand = "Rickenbacker",
                             Description = "Cherry Red, 4 string electric bass",
-                            InstrumentType = 0,
+                            InstrumentType = "String",
                             Material = "Eastern hardrock Maple",
                             Name = "Bass"
                         });

@@ -56,7 +56,7 @@ namespace DoNotFret.Migrations
                     Brand = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Material = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    InstrumentType = table.Column<int>(type: "int", nullable: false)
+                    InstrumentType = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -184,8 +184,8 @@ namespace DoNotFret.Migrations
                 columns: new[] { "Id", "Brand", "Description", "InstrumentType", "Material", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Ibanez", "Natural Wood Finish, 6 string electric guitar", 0, "Basswood", "Guitar" },
-                    { 2, "Rickenbacker", "Cherry Red, 4 string electric bass", 0, "Eastern hardrock Maple", "Bass" }
+                    { 1, "Ibanez", "Natural Wood Finish, 6 string electric guitar", "String", "Basswood", "Guitar" },
+                    { 2, "Rickenbacker", "Cherry Red, 4 string electric bass", "String", "Eastern hardrock Maple", "Bass" }
                 });
 
             migrationBuilder.CreateIndex(
