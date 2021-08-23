@@ -52,12 +52,14 @@ namespace DoNotFret
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DoNotFretDbContext db)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            db.Database.Migrate();
 
             // Static files is for when we want to bring in CSS files.
             app.UseStaticFiles();

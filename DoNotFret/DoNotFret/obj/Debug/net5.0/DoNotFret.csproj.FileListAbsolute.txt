@@ -162,3 +162,5 @@ C:\Users\locoq\repo\MVCProject\DoNotFret\DoNotFret\obj\Debug\net5.0\Razor\Views\
 C:\Users\locoq\repo\MVCProject\DoNotFret\DoNotFret\obj\Debug\net5.0\Razor\Views\Home\IAm.cshtml.g.cs
 C:\Users\locoq\repo\MVCProject\DoNotFret\DoNotFret\obj\Debug\net5.0\Razor\Views\Home\Added.cshtml.g.cs
 C:\Users\locoq\repo\MVCProject\DoNotFret\DoNotFret\obj\Debug\net5.0\Razor\Views\Home\Deleted.cshtml.g.cs
+C:\Users\Jona\Source\Repos\MVCProject\DoNotFret\DoNotFret\obj\Debug\net5.0\Razor\Views\Home\Added.cshtml.g.cs
+C:\Users\Jona\Source\Repos\MVCProject\DoNotFret\DoNotFret\obj\Debug\net5.0\Razor\Views\Home\Deleted.cshtml.g.cs
