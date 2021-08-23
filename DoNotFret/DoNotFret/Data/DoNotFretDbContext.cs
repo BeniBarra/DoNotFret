@@ -25,14 +25,14 @@ namespace DoNotFret.Data
 
             modelBuilder.Entity<Instrument>().HasData(
                 new Instrument
-                { 
-                    Id = 1, 
-                    Name = "Guitar", 
-                    Brand = "Ibanez", 
-                    Material = "Basswood", 
+                {
+                    Id = 1,
+                    Name = "Guitar",
+                    Brand = "Ibanez",
+                    Material = "Basswood",
                     Description = "Natural Wood Finish, 6 string electric guitar",
-                    InstrumentType = InstrumentType.String
-                });
+                    InstrumentType = "String"
+                }); ;
 
             modelBuilder.Entity<Instrument>().HasData(
                 new Instrument
@@ -42,7 +42,7 @@ namespace DoNotFret.Data
                     Brand = "Rickenbacker",
                     Material = "Eastern hardrock Maple",
                     Description = "Cherry Red, 4 string electric bass",
-                    InstrumentType = InstrumentType.String
+                    InstrumentType = "String"
                 });
 
             // Creating our roles that we will assign users.

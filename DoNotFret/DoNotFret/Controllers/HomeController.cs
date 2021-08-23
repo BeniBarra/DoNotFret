@@ -38,7 +38,7 @@ namespace DoNotFret.Controllers
         {
             await _service.Create(instruments);
             if (!ModelState.IsValid) { return View(); }
-            return Content("Instrument was added");
+            return View("Added");
         }
 
         [Authorize(Roles="Admin, Technician")]
@@ -62,7 +62,7 @@ namespace DoNotFret.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _service.Delete(id);
-            return Content("Your Instrument has been deleted from the system");
+            return View("Deleted");
         }
 
         public IActionResult RememberName(string name)
