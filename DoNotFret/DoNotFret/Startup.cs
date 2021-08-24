@@ -69,6 +69,7 @@ namespace DoNotFret
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 // this is the definition that says: by default, controller goes to home, action is index.
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
             });
