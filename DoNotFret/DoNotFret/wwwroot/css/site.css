@@ -79,7 +79,7 @@ li {
 	width:100%;
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: flex-start;
 	flex-wrap: wrap !important;
 }
 
@@ -91,13 +91,21 @@ li {
 	min-width: 400px;
 	width: fit-content;
 	box-shadow: #808080 0px 0px 8px;
+	margin-right: 1.5rem;
 }
 
 #listTitle {
 	text-decoration: none;
-	color: inherit;
-	text-shadow: #260707c3 1.15px 1.5px 3px;
+	color: black;
 	-webkit-font-smoothing: antialiased;
+	text-shadow: none;
+	font-size: 2rem;
+	margin: 0 1rem;
+	background-color: antiquewhite;
+	display: inline;
+	padding: 0 6px;
+	border-radius: 10px;
+	box-shadow: #808080 0px 0px 8px;
 }
 
 #listButton {

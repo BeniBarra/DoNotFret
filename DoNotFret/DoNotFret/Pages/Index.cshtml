@@ -6,8 +6,9 @@
 <h1 class="mainTitleText">User Home</h1>
 <div id="link-container">
 	<a class="navLinks" asp-page="/Index">User Home</a>
-	<a class="navLinks" asp-controller="Auth" asp-action="userlogin">Sign In</a>
-	<a class="navLinks" asp-controller="Auth" asp-action="usersignup">Register</a>
+	<a class="navLinks" href="/userlogin">Sign In</a>
+	<a class="navLinks" href="/usersignup">Register</a>
+	<!--<select asp-for"Input.Mode" asp-items="Html.GetEnumSelectList<ColorScheme>()"</select> -->
 </div>
 
 @if (Model.Instruments != null)
@@ -18,7 +19,7 @@
 		{
 			<div class="list-element">
 				<form>
-					<h4>@inst.Name</h4>
+					<h4 id="listTitle">@inst.Name</h4>
 					<ul>
 						<li class="listItems">@inst.InstrumentType</li>
 						<li class="listItems">@inst.Brand</li>

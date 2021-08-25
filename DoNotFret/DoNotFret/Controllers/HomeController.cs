@@ -80,7 +80,6 @@ namespace DoNotFret.Controllers
             return Content("Please provide a name");
         }
 
-        [Authorize(Roles = "Admin")]
         public IActionResult IAm()
         {
             // app.get

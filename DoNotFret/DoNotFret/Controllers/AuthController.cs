@@ -63,9 +63,9 @@ namespace DoNotFret.Controllers
             if (user == null)
             {
                 this.ModelState.AddModelError(String.Empty, "Invalid Login, Please try again.");
-                return RedirectToAction("Index");
+                return Redirect("userlogin");
             }
-            return Redirect("/home/iam");
+            return Redirect("/");
         }
         //Token validation
         //Check with the user service to see if we're in the system.
@@ -78,25 +78,12 @@ namespace DoNotFret.Controllers
             data.Roles = new List<string> { "User" };
 
             // Create a user with that service
-            var user = await _userService.Register(data, this.ModelState);
-
+            var user = await _userService.Register(data, this.ModelState); 
             if (ModelState.IsValid)
             {
                 return Redirect("/");
             }
-            else { return View(); }
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> UserAuthenticate(LoginData data)
-        {
-            var user = await _userService.Authenticate(data.Username, data.Password);
-            if (user == null)
-            {
-                this.ModelState.AddModelError(String.Empty, "Invalid Login, Please try again.");
-                return RedirectToAction("Index");
-            }
-            return Redirect("/home/iam");
+            else { return Redirect("/Auth/userlogin"); }
         }
 
     }

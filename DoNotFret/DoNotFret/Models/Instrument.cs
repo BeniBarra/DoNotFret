@@ -13,7 +13,5 @@ namespace DoNotFret.Models
         public string Material { get; set; }
         public string Description { get; set; }
         public string InstrumentType { get; set; }
-
     }
-
 }
