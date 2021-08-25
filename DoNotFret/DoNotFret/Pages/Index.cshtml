@@ -17,7 +17,7 @@
 	@if (User.Identity.IsAuthenticated)
     {
 		@*<a class="navLinks" href="/cart">Cart( @ViewData["count"] )</a>*@
-		<vc:cart></vc:cart>
+		<vc:cart-count></vc:cart-count>
     }
 	<!--<select asp-for"Input.Mode" asp-items="Html.GetEnumSelectList<ColorScheme>()"</select> -->
 </div>

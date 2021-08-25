@@ -10,12 +10,10 @@ namespace DoNotFret.Pages
 {
     public class CartModel : PageModel
     {
-
         public void OnGet()
         {
+
         }
-
-
     }
 
     public class UserCart

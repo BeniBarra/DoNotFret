@@ -11,6 +11,8 @@ namespace DoNotFret.Controllers
 {
     public class AuthController : Controller
     {
+        public const string AUTH_ROUTE = "/auth";
+
         private IUserService _userService;
 
         public AuthController(IUserService service)
@@ -45,7 +47,7 @@ namespace DoNotFret.Controllers
         public async Task<ActionResult<UserDto>> Signup(RegisterUser data)
         {
             // Hardcode the role
-            data.Roles = new List<string> { "Admin"};
+            data.Roles = new List<string> { "Admin" };
 
             // Create a user with that service
             var user = await _userService.Register(data, this.ModelState);
@@ -65,9 +67,9 @@ namespace DoNotFret.Controllers
             if (user == null)
             {
                 this.ModelState.AddModelError(String.Empty, "Invalid Login, Please try again.");
-                return Redirect("userlogin");
+                return Redirect("/");
             }
-            return Redirect("/");
+            return Redirect($"/{HomeController.HOME_ROUTE}");
         }
         //Token validation
         //Check with the user service to see if we're in the system.

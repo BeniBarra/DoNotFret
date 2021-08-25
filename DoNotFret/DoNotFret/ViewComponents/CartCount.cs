@@ -13,7 +13,6 @@ namespace DoNotFret.Pages.Component
         {
             return View();
         }
-
     }
 
     public class UserCart
