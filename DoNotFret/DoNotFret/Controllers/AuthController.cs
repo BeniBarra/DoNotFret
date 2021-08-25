@@ -1,5 +1,6 @@
 ﻿using AuthDemo.Auth.Models.Dto;
 using AuthDemo.Auth.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -60,6 +61,7 @@ namespace DoNotFret.Controllers
         public async Task<ActionResult> Authenticate(LoginData data)
         {
             var user = await _userService.Authenticate(data.Username, data.Password);
+
             if (user == null)
             {
                 this.ModelState.AddModelError(String.Empty, "Invalid Login, Please try again.");

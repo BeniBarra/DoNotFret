@@ -4,10 +4,21 @@
 }
 
 <h1 class="mainTitleText">User Home</h1>
+@if (User.Identity.IsAuthenticated)
+{ <h1 class="mainTitleText">Welcome @ViewData["username"]</h1> }
+
 <div id="link-container">
-	<a class="navLinks" asp-page="/Index">User Home</a>
-	<a class="navLinks" href="/userlogin">Sign In</a>
-	<a class="navLinks" href="/usersignup">Register</a>
+	<a class="navLinks" asp-page="/Index">Home</a>
+	@if (User.Identity.IsAuthenticated == false)
+	{
+		<a class="navLinks" href="/userlogin">Sign In</a>
+		<a class="navLinks" href="/usersignup">Register</a>
+	}
+	@if (User.Identity.IsAuthenticated)
+    {
+		@*<a class="navLinks" href="/cart">Cart( @ViewData["count"] )</a>*@
+		<vc:cart></vc:cart>
+    }
 	<!--<select asp-for"Input.Mode" asp-items="Html.GetEnumSelectList<ColorScheme>()"</select> -->
 </div>
 
@@ -18,7 +29,7 @@
 		@foreach (var inst in Model.Instruments)
 		{
 			<div class="list-element">
-				<form>
+				<form href="cart">
 					<h4 id="listTitle">@inst.Name</h4>
 					<ul>
 						<li class="listItems">@inst.InstrumentType</li>

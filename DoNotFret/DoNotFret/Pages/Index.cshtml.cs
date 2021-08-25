@@ -24,6 +24,10 @@ namespace DoNotFret.Pages
         public async Task OnGet()
         {
             Instruments = await _service.GetAll();
+
+            string username = HttpContext.Request.Cookies["username"];
+            ViewData["username"] = username;
         }
+
     }
 }
