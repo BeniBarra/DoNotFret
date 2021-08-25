@@ -2,17 +2,21 @@
 
 @using DoNotFret.Models
 
-<h2>Add a new instrument</h2>
+<h2 class="mainTitleText">Add a new instrument</h2>
+
+<div id="link-container">
+	<a class="navLinks" asp-controller="Home" asp-action="Index">Home</a>
+</div>
 
 <form asp-controller="Home" asp-action="Add" method="post">
 	<label>
 		<span>Type</span>
-		<select asp-for="@Model.InstrumentType" asp-items="Html.GetEnumSelectList<InstrumentType>()"></select>
+		<input placeholder="Brass, WoodWind, Percussion..." asp-for="@Model.InstrumentType" />
 	</label>
 
 	<label>
 		<span>Instrument Name</span>
-		<input asp-for="@Model.Name" />
+		<input placeholder="guitar, flute, piano" asp-for="@Model.Name" />
 	</label>
 
 	<label>
@@ -22,7 +26,7 @@
 
 	<label>
 		<span>Material</span>
-		<input asp-for="@Model.Material" />
+		<input placeholder="Maple, Brass..." asp-for="@Model.Material" />
 	</label>
 
 	<label>

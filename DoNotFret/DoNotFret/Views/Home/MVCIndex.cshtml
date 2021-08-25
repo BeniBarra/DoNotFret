@@ -1,0 +1,29 @@
+﻿@model IEnumerable<DoNotFret.Models.Instrument>
+
+<h1 class="mainTitleText">Home</h1>
+<div id="link-container">
+	<a class="navLinks" asp-controller="Auth" asp-action="Index">Sign In</a>
+	<a class="navLinks" asp-controller="Auth" asp-action="Signup">Register</a>
+	<a class="navLinks" asp-controller="Home" asp-action="Add">Add an instrument to inventory</a>
+</div>
+
+<div id="cardContainer">
+
+	@foreach (var music in Model)
+	{
+<div class="list-element">		
+	<form asp-controller="Home" asp-action="Delete" asp-route-id="@music.Id" method="get">		
+		<h4 ><a id="listTitle" asp-controller="Home" asp-action="Edit" asp-route-id="@music.Id">@music.Name</a></h4>
+	<ul>
+			<li class="listItems">@music.InstrumentType</li>
+			<li class="listItems">@music.Brand</li>
+			<li class="listItems">@music.Material</li>
+			<li class="listItems">@music.Description</li>
+	</ul>
+			<input type="hidden" name="Id" value="@music.Id" />
+			<button id="listButton" type="submit" >Delete</button>
+	<br />
+	</form>
+</div>
+	}
+</div>

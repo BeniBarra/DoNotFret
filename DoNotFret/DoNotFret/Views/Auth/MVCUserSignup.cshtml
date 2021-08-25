@@ -1,10 +1,10 @@
-﻿<h2 class="mainTitleText">Create a DoNotFret Admin Account</h2>
+﻿<h2 class="mainTitleText">Create a DoNotFret User Account</h2>
 
 <div id="link-container">
-	<a class="navLinks" asp-controller="Home" asp-action="Index">Home</a>
+	<a class="navLinks" asp-page="/Index">Home</a>
 </div>
 
-<form method="post" action="/Auth/signup">
+<form method="post" action="/Auth/usersignup">
 	<div><input name="username" placeholder="username"/></div>
 	<div><input name="password" type="password" placeholder="password"/></div>
 	<div><input name="email" placeholder="email"/></div>

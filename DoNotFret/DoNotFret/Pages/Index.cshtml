@@ -1,0 +1,47 @@
+﻿@page
+@model DoNotFret.Pages.IndexModel
+@{
+}
+
+<h1 class="mainTitleText">User Home</h1>
+@if (User.Identity.IsAuthenticated)
+{ <h1 class="mainTitleText">Welcome @ViewData["username"]</h1> }
+
+<div id="link-container">
+	<a class="navLinks" asp-page="/Index">Home</a>
+	@if (User.Identity.IsAuthenticated == false)
+	{
+		<a class="navLinks" href="/userlogin">Sign In</a>
+		<a class="navLinks" href="/usersignup">Register</a>
+	}
+	@if (User.Identity.IsAuthenticated)
+    {
+		@*<a class="navLinks" href="/cart">Cart( @ViewData["count"] )</a>*@
+		<vc:cart></vc:cart>
+    }
+	<!--<select asp-for"Input.Mode" asp-items="Html.GetEnumSelectList<ColorScheme>()"</select> -->
+</div>
+
+@if (Model.Instruments != null)
+{
+	<div id="cardContainer">
+
+		@foreach (var inst in Model.Instruments)
+		{
+			<div class="list-element">
+				<form href="cart">
+					<h4 id="listTitle">@inst.Name</h4>
+					<ul>
+						<li class="listItems">@inst.InstrumentType</li>
+						<li class="listItems">@inst.Brand</li>
+						<li class="listItems">@inst.Material</li>
+						<li class="listItems">@inst.Description</li>
+					</ul>
+					<input type="hidden" name="Id" value="@inst.Id" />
+					<button id="listButton" type="submit">Add to Cart</button>
+					<br />
+				</form>
+			</div>
+		}
+	</div>
+}

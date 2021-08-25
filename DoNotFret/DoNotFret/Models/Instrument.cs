@@ -12,15 +12,6 @@ namespace DoNotFret.Models
         public string Brand { get; set; }
         public string Material { get; set; }
         public string Description { get; set; }
-        public InstrumentType InstrumentType { get; set; }
-
-    }
-    public enum InstrumentType
-    {
-        String,
-        Woodwind,
-        Brass,
-        Keyboard,
-        Percussion
+        public string InstrumentType { get; set; }
     }
 }

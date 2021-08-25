@@ -1,0 +1,23 @@
+﻿@page
+@model DoNotFret.Pages.UserSignupModel
+@{
+}
+
+<h2 class="mainTitleText">Create a DoNotFret User Account</h2>
+
+<div id="link-container">
+	<a class="navLinks" asp-page="/Index">Home</a>
+</div>
+
+<form method="post">
+	<div><input asp-for="NewUser.Username" placeholder="username"/></div>
+	<div><input asp-for="NewUser.Password" type="password" placeholder="password"/></div>
+	<div><input asp-for="NewUser.Email" placeholder="email"/></div>
+	<div><input asp-for="NewUser.PhoneNumber" placeholder="123-456-7890"/></div>
+	<input  type="submit" value="Sign Up"/>
+</form>
+
+@*provides any error message that we have.*@
+<div asp-validation-summary="All"></div>
+
+

@@ -1,0 +1,20 @@
+﻿@page
+@model DoNotFret.Pages.UserLoginModel
+@{
+}
+
+<h2 class="mainTitleText">Sign in to Do Not Fret</h2>
+
+<div id="link-container">
+	<a class="navLinks" asp-page="/Index">Home</a>
+</div>
+
+<form method="post">
+	<div><input asp-for="LoginData.Username" placeholder="username"/></div>
+	<div><input asp-for="LoginData.Password" type="password" placeholder="password"/></div>
+	<input type="submit" value="Sign In"/>
+</form>
+
+@*provides any error message that we have.*@
+<div asp-validation-summary="All"></div>
+
