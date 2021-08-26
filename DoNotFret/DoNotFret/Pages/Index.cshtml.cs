@@ -22,6 +22,11 @@ namespace DoNotFret.Pages
             _context = context;
         }
 
+        public class CartInstrumentId
+        {
+            public string Id { get; set; }
+        }
+
         [BindProperty]
         public CartInstrumentId Input { get; set; }
         public List<Instrument> Instruments { get; set; }
@@ -34,10 +39,10 @@ namespace DoNotFret.Pages
             ViewData["username"] = username;
         }
 
-        public async void OnPost(string instrumentId)
+        public async Task OnPost()
         {
             string username = HttpContext.Request.Cookies["username"];
-            Instrument = await _service.GetOne(Convert.ToInt32(instrumentId));
+            Instrument = await _service.GetOne(Convert.ToInt32(Input.Id));
             UserCart exisitingCart = await _context.UserCart.FindAsync(GetCartIdFromCookie());
 
             if (exisitingCart != null)
@@ -81,10 +86,7 @@ namespace DoNotFret.Pages
             return cartId;
         }
 
-        public class CartInstrumentId
-        {
-            public string InstrumendId { get; set; }
-        }
+
 
     }
 }

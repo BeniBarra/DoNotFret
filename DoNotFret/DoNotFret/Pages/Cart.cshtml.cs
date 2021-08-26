@@ -32,6 +32,6 @@ namespace DoNotFret.Pages
     {
         public int Id { get; set; }
         public string Username { get; set; }
-        public IList<Instrument> CartItem { get; set; }
+        public List<Instrument> CartItem { get; set; }
     }
 }
