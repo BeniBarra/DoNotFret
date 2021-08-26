@@ -13,10 +13,12 @@
 	{
 		<a class="navLinks" href="/userlogin">Sign In</a>
 		<a class="navLinks" href="/usersignup">Register</a>
+		<a class="navLinks" asp-controller="Home" asp-action="HomeIndex">Admin Page</a>
 	}
 	@if (User.Identity.IsAuthenticated)
     {
 		@*<a class="navLinks" href="/cart">Cart( @ViewData["count"] )</a>*@
+		<a class="navLinks" asp-controller="Home" asp-action="HomeIndex">Admin Page</a>
 		<vc:cart-count></vc:cart-count>
     }
 	<!--<select asp-for"Input.Mode" asp-items="Html.GetEnumSelectList<ColorScheme>()"</select> -->

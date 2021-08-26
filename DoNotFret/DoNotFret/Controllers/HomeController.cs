@@ -21,7 +21,7 @@ namespace DoNotFret.Controllers
             _service = instruments;
         }
 
-        public async Task<ActionResult<IEnumerable<Instrument>>> Index()
+        public async Task<ActionResult<IEnumerable<Instrument>>> HomeIndex()
         {
             var list = await _service.GetAll();
             return View(list);

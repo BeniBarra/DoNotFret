@@ -69,7 +69,7 @@ namespace DoNotFret.Controllers
                 this.ModelState.AddModelError(String.Empty, "Invalid Login, Please try again.");
                 return Redirect("/");
             }
-            return Redirect($"/{HomeController.HOME_ROUTE}");
+            return Redirect($"/home");
         }
         //Token validation
         //Check with the user service to see if we're in the system.
