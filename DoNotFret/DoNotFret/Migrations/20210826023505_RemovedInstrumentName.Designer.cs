@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoNotFret.Migrations
 {
     [DbContext(typeof(DoNotFretDbContext))]
-    [Migration("20210823032023_Migrate")]
-    partial class Migrate
+    [Migration("20210826023505_RemovedInstrumentName")]
+    partial class RemovedInstrumentName
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -105,10 +105,12 @@ namespace DoNotFret.Migrations
                     b.Property<string>("Material")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("UserCartId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserCartId");
 
                     b.ToTable("Instrument");
 
@@ -118,19 +120,32 @@ namespace DoNotFret.Migrations
                             Id = 1,
                             Brand = "Ibanez",
                             Description = "Natural Wood Finish, 6 string electric guitar",
-                            InstrumentType = "String",
-                            Material = "Basswood",
-                            Name = "Guitar"
+                            InstrumentType = "Guitar",
+                            Material = "Basswood"
                         },
                         new
                         {
                             Id = 2,
                             Brand = "Rickenbacker",
                             Description = "Cherry Red, 4 string electric bass",
-                            InstrumentType = "String",
-                            Material = "Eastern hardrock Maple",
-                            Name = "Bass"
+                            InstrumentType = "Bass",
+                            Material = "Eastern hardrock Maple"
                         });
+                });
+
+            modelBuilder.Entity("DoNotFret.Pages.UserCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserCart");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -287,6 +302,13 @@ namespace DoNotFret.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("DoNotFret.Models.Instrument", b =>
+                {
+                    b.HasOne("DoNotFret.Pages.UserCart", null)
+                        .WithMany("CartItem")
+                        .HasForeignKey("UserCartId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -336,6 +358,11 @@ namespace DoNotFret.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DoNotFret.Pages.UserCart", b =>
+                {
+                    b.Navigation("CartItem");
                 });
 #pragma warning restore 612, 618
         }
