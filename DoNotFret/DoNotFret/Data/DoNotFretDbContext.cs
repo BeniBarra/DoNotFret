@@ -7,12 +7,14 @@ using DoNotFret.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using AuthDemo.Auth.Models;
 using Microsoft.AspNetCore.Identity;
+using DoNotFret.Pages;
 
 namespace DoNotFret.Data
 {
     public class DoNotFretDbContext : IdentityDbContext<AuthUser> 
     {
         public DbSet<Instrument> Instrument { get; set; }
+        public DbSet<UserCart> UserCart { get; set; }
 
         //constructor for out DbContext. Inserting options.
         public DoNotFretDbContext(DbContextOptions options) : base(options)
@@ -27,22 +29,20 @@ namespace DoNotFret.Data
                 new Instrument
                 {
                     Id = 1,
-                    Name = "Guitar",
+                    InstrumentType = "Guitar",
                     Brand = "Ibanez",
                     Material = "Basswood",
                     Description = "Natural Wood Finish, 6 string electric guitar",
-                    InstrumentType = "String"
                 }); ;
 
             modelBuilder.Entity<Instrument>().HasData(
                 new Instrument
                 {
                     Id = 2,
-                    Name = "Bass",
+                    InstrumentType = "Bass",
                     Brand = "Rickenbacker",
                     Material = "Eastern hardrock Maple",
                     Description = "Cherry Red, 4 string electric bass",
-                    InstrumentType = "String"
                 });
 
             // Creating our roles that we will assign users.
