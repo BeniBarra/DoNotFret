@@ -14,7 +14,12 @@ namespace DoNotFret.Data
     public class DoNotFretDbContext : IdentityDbContext<AuthUser> 
     {
         public DbSet<Instrument> Instrument { get; set; }
+        public DbSet<Cart> Cart { get; set; }
+
+        // Nav Properties
+
         public DbSet<UserCart> UserCart { get; set; }
+        public DbSet<CartItem> CartItem { get; set; }
 
         //constructor for out DbContext. Inserting options.
         public DoNotFretDbContext(DbContextOptions options) : base(options)
@@ -44,6 +49,21 @@ namespace DoNotFret.Data
                     Material = "Eastern hardrock Maple",
                     Description = "Cherry Red, 4 string electric bass",
                 });
+
+            modelBuilder.Entity<Cart>().HasData(
+                new Cart
+                {
+                    Id = 1,
+                    Username = "SorviusN",
+                });
+
+            modelBuilder.Entity<CartItem>().HasKey(
+                cartItem => new { cartItem.CartId, cartItem.InstrumentId }
+            );
+
+            modelBuilder.Entity<UserCart>().HasKey(
+                userCart => new { userCart.CartId, userCart.UserId }
+            );
 
             // Creating our roles that we will assign users.
             modelBuilder.Entity<IdentityRole>().HasData(

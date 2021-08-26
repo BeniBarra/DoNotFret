@@ -10,7 +10,6 @@ namespace DoNotFret.Models
     {
         //Join table that connects one user to one cart.
         public int CartId { get; set; }
-        public int UserId { get; set; }
         public Cart Cart { get; set; }
         public AuthUser AuthUser { get; set; }
     }

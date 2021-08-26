@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using DoNotFret.Data;
@@ -32,6 +33,7 @@ namespace DoNotFret.Pages
     {
         public int Id { get; set; }
         public string Username { get; set; }
-        public List<Instrument> CartItem { get; set; }
+        public List<Instrument> CartItems { get; set; } 
+
     }
 }

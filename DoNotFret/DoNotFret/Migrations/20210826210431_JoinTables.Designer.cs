@@ -4,14 +4,16 @@ using DoNotFret.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DoNotFret.Migrations
 {
     [DbContext(typeof(DoNotFretDbContext))]
-    partial class DoNotFretDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210826210431_JoinTables")]
+    partial class JoinTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
