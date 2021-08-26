@@ -16,7 +16,7 @@ namespace DoNotFret.Pages
         }
     }
 
-    public class UserCart
+    public class Cart
     {
         public int Id { get; set; }
         public string Username { get; set; }

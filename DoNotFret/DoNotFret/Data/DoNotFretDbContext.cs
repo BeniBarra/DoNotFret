@@ -7,12 +7,15 @@ using DoNotFret.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using AuthDemo.Auth.Models;
 using Microsoft.AspNetCore.Identity;
+using DoNotFret.Pages;
 
 namespace DoNotFret.Data
 {
     public class DoNotFretDbContext : IdentityDbContext<AuthUser> 
     {
         public DbSet<Instrument> Instrument { get; set; }
+        public DbSet<Cart> Cart { get; set; }
+
 
         //constructor for out DbContext. Inserting options.
         public DoNotFretDbContext(DbContextOptions options) : base(options)
