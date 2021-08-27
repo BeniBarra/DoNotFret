@@ -16,6 +16,8 @@ namespace AuthDemo.Auth.Services.Interfaces
 
     public Task<UserDto> GetUser(ClaimsPrincipal user);
 
+        public Task SignOutAsync();
+
   }
 }
 

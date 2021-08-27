@@ -90,5 +90,12 @@ namespace DoNotFret.Controllers
             else { return Redirect("/Auth/userlogin"); }
         }
 
+        public async Task<IActionResult> Logout()
+        {
+            await _userService.SignOutAsync();
+            HttpContext.Response.Cookies.Delete("userId");
+            HttpContext.Response.Cookies.Delete("username");
+            return Redirect("/");
+        }
     }
 }

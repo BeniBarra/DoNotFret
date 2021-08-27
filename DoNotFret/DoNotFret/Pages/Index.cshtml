@@ -9,6 +9,10 @@
 
 <div id="link-container">
 	<a class="navLinks" asp-page="/Index">Home</a>
+	@if (User.Identity.IsAuthenticated)
+	{
+		<a class="navLinks" asp-controller="Auth" asp-action="Logout">Sign Out</a>
+	}
 	@if (User.Identity.IsAuthenticated == false)
 	{
 		<a class="navLinks" href="/userlogin">Sign In</a>
