@@ -22,18 +22,21 @@ namespace DoNotFret.Pages
             _context = context;
         }
 
-        public async void OnGet()
+        public void OnGet()
         {
-            string username = HttpContext.Request.Cookies["username"];
-            UserCart exisitingCart = await _context.UserCart.FindAsync(username);
+            string userId = HttpContext.Request.Cookies["userId"];
+            List<Cart> exisitingCart = _context.Cart.Where(x => x.UserId == userId).ToList();
+        }
+
+        public void OnPost()
+        {
         }
     }
 
     public class Cart
     {
         public int Id { get; set; }
-        public string Username { get; set; }
-        public List<Instrument> CartItems { get; set; } 
-
+        public string UserId { get; set; }
+        public List<CartItem> Instrument { get; set; } 
     }
 }

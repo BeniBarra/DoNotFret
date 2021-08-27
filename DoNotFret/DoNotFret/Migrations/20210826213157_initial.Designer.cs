@@ -4,14 +4,16 @@ using DoNotFret.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DoNotFret.Migrations
 {
     [DbContext(typeof(DoNotFretDbContext))]
-    partial class DoNotFretDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210826213157_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,21 +86,6 @@ namespace DoNotFret.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("DoNotFret.Models.CartItem", b =>
-                {
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("InstrumentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CartId", "InstrumentId");
-
-                    b.HasIndex("InstrumentId");
-
-                    b.ToTable("CartItem");
-                });
-
             modelBuilder.Entity("DoNotFret.Models.Instrument", b =>
                 {
                     b.Property<int>("Id")
@@ -108,6 +95,9 @@ namespace DoNotFret.Migrations
 
                     b.Property<string>("Brand")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CartId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -119,6 +109,8 @@ namespace DoNotFret.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CartId");
 
                     b.ToTable("Instrument");
 
@@ -148,7 +140,7 @@ namespace DoNotFret.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -159,7 +151,7 @@ namespace DoNotFret.Migrations
                         new
                         {
                             Id = 1,
-                            UserId = "1"
+                            Username = "SorviusN"
                         });
                 });
 
@@ -317,23 +309,11 @@ namespace DoNotFret.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("DoNotFret.Models.CartItem", b =>
+            modelBuilder.Entity("DoNotFret.Models.Instrument", b =>
                 {
-                    b.HasOne("DoNotFret.Pages.Cart", "Cart")
-                        .WithMany("Instrument")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DoNotFret.Models.Instrument", "Instrument")
-                        .WithMany()
-                        .HasForeignKey("InstrumentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cart");
-
-                    b.Navigation("Instrument");
+                    b.HasOne("DoNotFret.Pages.Cart", null)
+                        .WithMany("CartItems")
+                        .HasForeignKey("CartId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -389,7 +369,7 @@ namespace DoNotFret.Migrations
 
             modelBuilder.Entity("DoNotFret.Pages.Cart", b =>
                 {
-                    b.Navigation("Instrument");
+                    b.Navigation("CartItems");
                 });
 #pragma warning restore 612, 618
         }

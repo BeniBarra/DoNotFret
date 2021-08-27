@@ -39,55 +39,50 @@ namespace DoNotFret.Pages
             ViewData["username"] = username;
         }
 
-        public void OnPost()
+        public async Task OnPostAsync()
         {
-            //string username = HttpContext.Request.Cookies["username"];
-            //Instrument = await _service.GetOne(Convert.ToInt32(Input.Id));
-            //UserCart exisitingCart = await _context.UserCart.FindAsync(GetCartIdFromCookie());
+            string userId = HttpContext.Request.Cookies["userId"];
+            if(userId == null) { throw new Exception("Please Log in to add items to cart"); }
+            Cart exisitingCart = _context.Cart.Where(x => x.UserId == userId).SingleOrDefault();
 
-            //if (exisitingCart != null)
-            //{
-            //    exisitingCart.Cart.Add(Instrument);
-            //    _context.Entry(exisitingCart).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            //    await _context.SaveChangesAsync();
-            //    return;
-            //}
+            if (exisitingCart != null)
+            {
+                await CreateCartItem(Convert.ToInt32(Input.Id), exisitingCart.Id);
+                return;
+            }
 
-            //UserCart newCart = CreatUserCart(Instrument, username);
-            //CreateCartIdCookie(newCart);
-            //_context.Entry(newCart).State = Microsoft.EntityFrameworkCore.EntityState.Added;
-            //await _context.SaveChangesAsync();
-            //return;
+            Cart newCart = await CreateUserCartAsync(userId);
+            await CreateCartItem(Convert.ToInt32(Input.Id), newCart.Id);
+            return;
         }
 
-
-        public void CreatUserCart(Instrument instrument, string username)
+        public async Task<Cart> CreateUserCartAsync(string userId)
         {
-            //UserCart userCart = new UserCart();
-            ////Set a cookie with the name in it.
-            //userCart.Username = username;
-            //userCart.CartItem.Add(instrument);
-            //return userCart;
-
+            Cart newCart = new Cart()
+            {
+                UserId = userId
+            };
+            _context.Entry(newCart).State = Microsoft.EntityFrameworkCore.EntityState.Added;
+            await _context.SaveChangesAsync();
+            return newCart;
         }
 
-
-        public void CreateCartIdCookie(UserCart newCart)
+        public async Task CreateCartItem(int instrumentId, int cartId)
         {
-            //CookieOptions cookieOptions = new CookieOptions();
-            //// Cookie will expire in 7 days
-            //cookieOptions.Expires = new DateTimeOffset(DateTime.Now.AddDays(7));
-            //HttpContext.Response.Cookies.Append("cartId", newCart.Id.ToString(), cookieOptions);
+            CartItem addingToCart = new()
+            {
+                InstrumentId = instrumentId,
+                CartId = cartId
+            };
+            _context.Entry(addingToCart).State = Microsoft.EntityFrameworkCore.EntityState.Added;
+            await _context.SaveChangesAsync();
         }
 
-        public int GetCartIdFromCookie()
+        public int GetUserIdFromCookie()
         {
-            string username = HttpContext.Request.Cookies["cartId"];
-            int cartId = Convert.ToInt32(username);
-            return cartId;
+            string username = HttpContext.Request.Cookies["userId"];
+            int userId = Convert.ToInt32(username);
+            return userId;
         }
-
-
-
     }
 }
