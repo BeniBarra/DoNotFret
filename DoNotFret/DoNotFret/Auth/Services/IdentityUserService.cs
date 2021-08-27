@@ -61,14 +61,12 @@ namespace AuthDemo.Auth.Services
       }
 
       return null;
-
     }
 
     private TimeSpan TimeSpan(object p)
     {
       throw new NotImplementedException();
     }
-
 
     public async Task<UserDto> Authenticate(string username, string password)
     {
@@ -86,7 +84,6 @@ namespace AuthDemo.Auth.Services
           Roles = await userManager.GetRolesAsync(user)
         };
       }
-
       return null;
     }
 

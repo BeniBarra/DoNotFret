@@ -84,6 +84,21 @@ namespace DoNotFret.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("DoNotFret.Models.CartItem", b =>
+                {
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("InstrumentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CartId", "InstrumentId");
+
+                    b.HasIndex("InstrumentId");
+
+                    b.ToTable("CartItem");
+                });
+
             modelBuilder.Entity("DoNotFret.Models.Instrument", b =>
                 {
                     b.Property<int>("Id")
@@ -94,6 +109,9 @@ namespace DoNotFret.Migrations
                     b.Property<string>("Brand")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("CartId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -103,10 +121,9 @@ namespace DoNotFret.Migrations
                     b.Property<string>("Material")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("CartId");
 
                     b.ToTable("Instrument");
 
@@ -116,18 +133,56 @@ namespace DoNotFret.Migrations
                             Id = 1,
                             Brand = "Ibanez",
                             Description = "Natural Wood Finish, 6 string electric guitar",
-                            InstrumentType = "String",
-                            Material = "Basswood",
-                            Name = "Guitar"
+                            InstrumentType = "Guitar",
+                            Material = "Basswood"
                         },
                         new
                         {
                             Id = 2,
                             Brand = "Rickenbacker",
                             Description = "Cherry Red, 4 string electric bass",
-                            InstrumentType = "String",
-                            Material = "Eastern hardrock Maple",
-                            Name = "Bass"
+                            InstrumentType = "Bass",
+                            Material = "Eastern hardrock Maple"
+                        });
+                });
+
+            modelBuilder.Entity("DoNotFret.Models.UserCart", b =>
+                {
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AuthUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("CartId", "UserId");
+
+                    b.HasIndex("AuthUserId");
+
+                    b.ToTable("UserCart");
+                });
+
+            modelBuilder.Entity("DoNotFret.Pages.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cart");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Username = "SorviusN"
                         });
                 });
 
@@ -285,6 +340,49 @@ namespace DoNotFret.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("DoNotFret.Models.CartItem", b =>
+                {
+                    b.HasOne("DoNotFret.Pages.Cart", "Cart")
+                        .WithMany()
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DoNotFret.Models.Instrument", "Instrument")
+                        .WithMany()
+                        .HasForeignKey("InstrumentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Instrument");
+                });
+
+            modelBuilder.Entity("DoNotFret.Models.Instrument", b =>
+                {
+                    b.HasOne("DoNotFret.Pages.Cart", null)
+                        .WithMany("CartItems")
+                        .HasForeignKey("CartId");
+                });
+
+            modelBuilder.Entity("DoNotFret.Models.UserCart", b =>
+                {
+                    b.HasOne("DoNotFret.Models.AuthUser", "AuthUser")
+                        .WithMany()
+                        .HasForeignKey("AuthUserId");
+
+                    b.HasOne("DoNotFret.Pages.Cart", "Cart")
+                        .WithMany()
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AuthUser");
+
+                    b.Navigation("Cart");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -334,6 +432,11 @@ namespace DoNotFret.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DoNotFret.Pages.Cart", b =>
+                {
+                    b.Navigation("CartItems");
                 });
 #pragma warning restore 612, 618
         }

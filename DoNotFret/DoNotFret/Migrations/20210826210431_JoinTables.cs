@@ -2,7 +2,7 @@
 
 namespace DoNotFret.Migrations
 {
-    public partial class Migrate : Migration
+    public partial class JoinTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
