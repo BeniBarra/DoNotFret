@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoNotFret.Migrations
 {
     [DbContext(typeof(DoNotFretDbContext))]
-    [Migration("20210826210431_JoinTables")]
-    partial class JoinTables
+    [Migration("20210826233007_Initial2")]
+    partial class Initial2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -111,9 +111,6 @@ namespace DoNotFret.Migrations
                     b.Property<string>("Brand")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CartId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -124,8 +121,6 @@ namespace DoNotFret.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CartId");
 
                     b.ToTable("Instrument");
 
@@ -148,24 +143,6 @@ namespace DoNotFret.Migrations
                         });
                 });
 
-            modelBuilder.Entity("DoNotFret.Models.UserCart", b =>
-                {
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AuthUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("CartId", "UserId");
-
-                    b.HasIndex("AuthUserId");
-
-                    b.ToTable("UserCart");
-                });
-
             modelBuilder.Entity("DoNotFret.Pages.Cart", b =>
                 {
                     b.Property<int>("Id")
@@ -173,7 +150,7 @@ namespace DoNotFret.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Username")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -184,7 +161,7 @@ namespace DoNotFret.Migrations
                         new
                         {
                             Id = 1,
-                            Username = "SorviusN"
+                            UserId = "1"
                         });
                 });
 
@@ -345,7 +322,7 @@ namespace DoNotFret.Migrations
             modelBuilder.Entity("DoNotFret.Models.CartItem", b =>
                 {
                     b.HasOne("DoNotFret.Pages.Cart", "Cart")
-                        .WithMany()
+                        .WithMany("Instrument")
                         .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -359,30 +336,6 @@ namespace DoNotFret.Migrations
                     b.Navigation("Cart");
 
                     b.Navigation("Instrument");
-                });
-
-            modelBuilder.Entity("DoNotFret.Models.Instrument", b =>
-                {
-                    b.HasOne("DoNotFret.Pages.Cart", null)
-                        .WithMany("CartItems")
-                        .HasForeignKey("CartId");
-                });
-
-            modelBuilder.Entity("DoNotFret.Models.UserCart", b =>
-                {
-                    b.HasOne("DoNotFret.Models.AuthUser", "AuthUser")
-                        .WithMany()
-                        .HasForeignKey("AuthUserId");
-
-                    b.HasOne("DoNotFret.Pages.Cart", "Cart")
-                        .WithMany()
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AuthUser");
-
-                    b.Navigation("Cart");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -438,7 +391,7 @@ namespace DoNotFret.Migrations
 
             modelBuilder.Entity("DoNotFret.Pages.Cart", b =>
                 {
-                    b.Navigation("CartItems");
+                    b.Navigation("Instrument");
                 });
 #pragma warning restore 612, 618
         }

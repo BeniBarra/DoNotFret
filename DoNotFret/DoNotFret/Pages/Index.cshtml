@@ -9,6 +9,10 @@
 
 <div id="link-container">
 	<a class="navLinks" asp-page="/Index">Home</a>
+	@if (User.Identity.IsAuthenticated)
+	{
+		<a class="navLinks" asp-controller="Auth" asp-action="Logout">Sign Out</a>
+	}
 	@if (User.Identity.IsAuthenticated == false)
 	{
 		<a class="navLinks" href="/userlogin">Sign In</a>
@@ -38,7 +42,10 @@
 						<li class="listItems">@inst.Description</li>
 					</ul>
 					<input asp-for="Input.Id" type="hidden" name="Id" value="@inst.Id" />
-					<button id="listButton" type="submit">Add to Cart</button>
+					@if (User.Identity.IsAuthenticated)
+                    {
+						<button id="listButton" type="submit">Add to Cart</button>
+                    }
 					<br />
 				</form>
 			</div>

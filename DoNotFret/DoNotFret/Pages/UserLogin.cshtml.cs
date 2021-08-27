@@ -43,6 +43,7 @@ namespace DoNotFret.Pages
             // Cookie will expire in 7 days
             cookieOptions.Expires = new DateTimeOffset(DateTime.Now.AddDays(7));
             HttpContext.Response.Cookies.Append("username", user.Username.ToString(), cookieOptions);
+            HttpContext.Response.Cookies.Append("userId", user.Id.ToString(), cookieOptions);
 
             return Redirect("/");
         }

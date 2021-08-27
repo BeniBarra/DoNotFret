@@ -18,7 +18,6 @@ namespace DoNotFret.Data
 
         // Nav Properties
 
-        public DbSet<UserCart> UserCart { get; set; }
         public DbSet<CartItem> CartItem { get; set; }
 
         //constructor for out DbContext. Inserting options.
@@ -54,15 +53,11 @@ namespace DoNotFret.Data
                 new Cart
                 {
                     Id = 1,
-                    Username = "SorviusN",
+                    UserId = "1"
                 });
 
             modelBuilder.Entity<CartItem>().HasKey(
                 cartItem => new { cartItem.CartId, cartItem.InstrumentId }
-            );
-
-            modelBuilder.Entity<UserCart>().HasKey(
-                userCart => new { userCart.CartId, userCart.UserId }
             );
 
             // Creating our roles that we will assign users.
