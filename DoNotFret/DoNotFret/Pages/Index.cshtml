@@ -35,11 +35,11 @@
 		{
 			<div class="list-element">
 				<form method="post">
-					<h4 id="listTitle">@inst.InstrumentType</h4>
+					<h4 id="list-title">@inst.InstrumentType</h4>
 					<ul>
-						<li class="listItems">@inst.Brand</li>
-						<li class="listItems">@inst.Material</li>
-						<li class="listItems">@inst.Description</li>
+						<li class="list-items">@inst.Brand</li>
+						<li class="list-items">@inst.Material</li>
+						<li class="list-items">@inst.Description</li>
 					</ul>
 					<input asp-for="Input.Id" type="hidden" name="Id" value="@inst.Id" />
 					@if (User.Identity.IsAuthenticated)

@@ -16,6 +16,10 @@ namespace DoNotFret.Pages
         private readonly I_Instrument _service;
         private DoNotFretDbContext _context;
 
+        public int Id { get; set; }
+        public string UserId { get; set; }
+        public List<Instrument> Instruments { get; set; } 
+
         public CartModel(I_Instrument instruments, DoNotFretDbContext context)
         {
             _service = instruments;
@@ -25,18 +29,12 @@ namespace DoNotFret.Pages
         public void OnGet()
         {
             string userId = HttpContext.Request.Cookies["userId"];
-            List<Cart> exisitingCart = _context.Cart.Where(x => x.UserId == userId).ToList();
+            List<CartModel> exisitingCart = _context.Cart.Where(x => x.UserId == userId).ToList();
         }
 
         public void OnPost()
         {
+            // TODO: Logic for adding an item to cart.
         }
-    }
-
-    public class Cart
-    {
-        public int Id { get; set; }
-        public string UserId { get; set; }
-        public List<CartItem> Instrument { get; set; } 
     }
 }

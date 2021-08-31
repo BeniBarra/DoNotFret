@@ -16,6 +16,7 @@ namespace DoNotFret.Pages
         private readonly I_Instrument _service;
         private DoNotFretDbContext _context;
 
+        // DI
         public IndexModel(I_Instrument instruments, DoNotFretDbContext context)
         {
             _service = instruments;
@@ -39,11 +40,12 @@ namespace DoNotFret.Pages
             ViewData["username"] = username;
         }
 
+        // Called when a user adds something to their cart and is logged in.
         public async Task OnPostAsync()
         {
             string userId = HttpContext.Request.Cookies["userId"];
-            if(userId == null) { throw new Exception("Please Log in to add items to cart"); }
-            Cart exisitingCart = _context.Cart.Where(x => x.UserId == userId).SingleOrDefault();
+            if(userId == null) { throw new Exception("Please Log in to add items to cart."); }
+            CartItem exisitingCart = _context.Cart.Where(x => x.UserId == userId).SingleOrDefault();
 
             if (exisitingCart != null)
             {
@@ -51,7 +53,7 @@ namespace DoNotFret.Pages
                 return;
             }
 
-            Cart newCart = await CreateUserCartAsync(userId);
+            CartItem newCart = await CreateUserCartAsync(userId);
             await CreateCartItem(Convert.ToInt32(Input.Id), newCart.Id);
             return;
         }

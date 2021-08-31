@@ -3,8 +3,27 @@
 @{
 }
 
-<h2>Welcome You've Made it to the Cart</h2>
+<h2 class="cart-title">Cart</h2>
 
 <div id="link-container">
 	<a class="navLinks" asp-page="/Index">Home</a>
+	@if (Model.Instruments != null)
+    {
+		<div id="cardContainer">
+
+		@foreach(var inst in Model.Instruments)
+        {
+			<div class="cart-list">
+			<h4 class="cart-item-title"></h4>
+			<h3 class="cart-item-type"></h3>
+			<ul>
+			<li class="list-items"></li>
+			<li class="list-items"></li>
+			<li class="list-items"></li>
+			</ul>
+			</div>
+        }
+
+		</div>
+    }
 </div>
