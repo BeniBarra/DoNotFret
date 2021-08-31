@@ -14,10 +14,10 @@ namespace DoNotFret.Data
     public class DoNotFretDbContext : IdentityDbContext<AuthUser> 
     {
         public DbSet<Instrument> Instrument { get; set; }
-        public DbSet<Cart> Cart { get; set; }
+        public DbSet<CartModel> Cart { get; set; }
+        public DbSet<Category> Category { get; set; }
 
         // Nav Properties
-
         public DbSet<CartItem> CartItem { get; set; }
 
         //constructor for out DbContext. Inserting options.
@@ -49,13 +49,18 @@ namespace DoNotFret.Data
                     Description = "Cherry Red, 4 string electric bass",
                 });
 
-            modelBuilder.Entity<Cart>().HasData(
-                new Cart
+            modelBuilder.Entity<CartModel>().HasData(
+                new CartModel
                 {
                     Id = 1,
                     UserId = "1"
                 });
 
+            modelBuilder.Entity<Category>().HasData(
+                new Category
+                {
+                    Name = "Pianos",
+                });
             modelBuilder.Entity<CartItem>().HasKey(
                 cartItem => new { cartItem.CartId, cartItem.InstrumentId }
             );

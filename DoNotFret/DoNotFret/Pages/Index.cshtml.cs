@@ -30,12 +30,13 @@ namespace DoNotFret.Pages
 
         [BindProperty]
         public CartInstrumentId Input { get; set; }
+
         public List<Instrument> Instruments { get; set; }
         public Instrument Instrument { get; set; }
 
         public async Task OnGet()
         {
-            Instruments = await _service.GetAll();
+            var Categories = await _service.GetAllCategories();
             string username = HttpContext.Request.Cookies["username"];
             ViewData["username"] = username;
         }
@@ -45,7 +46,7 @@ namespace DoNotFret.Pages
         {
             string userId = HttpContext.Request.Cookies["userId"];
             if(userId == null) { throw new Exception("Please Log in to add items to cart."); }
-            CartItem exisitingCart = _context.Cart.Where(x => x.UserId == userId).SingleOrDefault();
+            CartModel exisitingCart = _context.Cart.Where(x => x.UserId == userId).SingleOrDefault();
 
             if (exisitingCart != null)
             {
@@ -53,17 +54,18 @@ namespace DoNotFret.Pages
                 return;
             }
 
-            CartItem newCart = await CreateUserCartAsync(userId);
+            CartModel newCart = await CreateUserCartAsync(userId);
             await CreateCartItem(Convert.ToInt32(Input.Id), newCart.Id);
             return;
         }
 
-        public async Task<Cart> CreateUserCartAsync(string userId)
+        public async Task<CartModel> CreateUserCartAsync(string userId)
         {
-            Cart newCart = new Cart()
+            CartModel newCart = new CartModel()
             {
                 UserId = userId
             };
+
             _context.Entry(newCart).State = Microsoft.EntityFrameworkCore.EntityState.Added;
             await _context.SaveChangesAsync();
             return newCart;

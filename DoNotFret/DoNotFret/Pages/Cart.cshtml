@@ -14,13 +14,13 @@
 		@foreach(var inst in Model.Instruments)
         {
 			<div class="cart-list">
-			<h4 class="cart-item-title"></h4>
-			<h3 class="cart-item-type"></h3>
-			<ul>
-			<li class="list-items"></li>
-			<li class="list-items"></li>
-			<li class="list-items"></li>
-			</ul>
+				<h4 class="cart-item-title">@inst.</h4>
+				<h3 class="cart-item-type">@inst.InstrumentType</h3>
+				<ul>
+				<li class="list-items">@inst.Brand</li>
+				<li class="list-items">@inst.Material</li>
+				<li class="list-items">@inst.Description</li>
+				</ul>
 			</div>
         }
 

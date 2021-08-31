@@ -15,10 +15,4 @@ namespace DoNotFret.Pages
 
         }
     }
-
-    public class Category
-    {
-        public string Name { get; set; }
-        public IList<Instrument> Instruments { get; set; }
-    }
 }

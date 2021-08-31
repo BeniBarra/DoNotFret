@@ -20,7 +20,7 @@ namespace DoNotFret.Pages
         public string UserId { get; set; }
         public List<Instrument> Instruments { get; set; } 
 
-        public CartModel(I_Instrument instruments, DoNotFretDbContext context)
+        public CartModel(I_Instrument instruments = null, DoNotFretDbContext context = null)
         {
             _service = instruments;
             _context = context;
