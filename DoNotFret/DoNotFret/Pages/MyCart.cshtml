@@ -1,9 +1,9 @@
 ﻿@page
-@model DoNotFret.Pages.CartModel
+@model DoNotFret.Pages.MyCartModel;
 @{
 }
 
-<h2 class="cart-title">Cart</h2>
+<h2 class="cart-title">My Cart</h2>
 
 <div id="link-container">
 	<a class="navLinks" asp-page="/Index">Home</a>
@@ -14,7 +14,7 @@
 		@foreach(var inst in Model.Instruments)
         {
 			<div class="cart-list">
-				<h4 class="cart-item-title">@inst.</h4>
+				<h4 class="cart-item-title"></h4>
 				<h3 class="cart-item-type">@inst.InstrumentType</h3>
 				<ul>
 				<li class="list-items">@inst.Brand</li>
@@ -23,7 +23,6 @@
 				</ul>
 			</div>
         }
-
 		</div>
     }
 </div>

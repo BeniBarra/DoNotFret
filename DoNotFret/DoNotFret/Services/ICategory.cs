@@ -8,13 +8,13 @@ namespace DoNotFret.Services
 {
     public interface ICategory
     {
-        Task<Instrument> Create(Category category);
+        Task<Category> Create(Category category);
 
-        Task<List<Instrument>> GetAll();
+        Task<List<Category>> GetAll();
 
-        Task<Instrument> GetOne(int id);
+        Task<Category> GetOne(int id);
 
-        Task<Instrument> Update(Category category);
+        Task<Category> Update(Category category);
 
         Task Delete(int id);
     }

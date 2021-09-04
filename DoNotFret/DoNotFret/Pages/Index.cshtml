@@ -22,7 +22,7 @@
 	@if (User.Identity.IsAuthenticated)
 	{
 		<a class="navLinks" asp-controller="Home" asp-action="HomeIndex">Admin Page</a>
-		<vc:cart-count></vc:cart-count>
+		@*<vc:cart-count></vc:cart-count>*@
 	}
 	<!--<select asp-for"Input.Mode" asp-items="Html.GetEnumSelectList<ColorScheme>()"</select> -->
 </div>
@@ -41,9 +41,17 @@
 						<li class="list-items">@inst.Description</li>
 					</ul>
 					<input asp-for="Input.Id" type="hidden" name="Id" value="@inst.Id" />
-					@if (User.Identity.IsAuthenticated)
-                    {
+					@if (User.Identity.IsAuthenticated && inst.HasBeenAdded == false)
+					{
 						<button id="listButton" type="submit">Add to Cart</button>
+					}
+					else if (User.Identity.IsAuthenticated && inst.HasBeenAdded == true)
+					{
+						<p>Item added to cart</p>
+					}
+                    else
+                    {
+						<p>Log in to add items to your cart</p>
                     }
 					<br />
 				</form>

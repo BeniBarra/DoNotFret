@@ -13,13 +13,15 @@ namespace DoNotFret.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly I_Instrument _service;
+        private readonly I_Instrument _instrumentService;
+        private readonly ICategory _categoryService;
         private DoNotFretDbContext _context;
 
         // DI
-        public IndexModel(I_Instrument instruments, DoNotFretDbContext context)
+        public IndexModel(ICategory category, I_Instrument instrument, DoNotFretDbContext context)
         {
-            _service = instruments;
+            _instrumentService = instrument;
+            _categoryService = category;
             _context = context;
         }
 
@@ -30,38 +32,53 @@ namespace DoNotFret.Pages
 
         [BindProperty]
         public CartInstrumentId Input { get; set; }
-
         public List<Instrument> Instruments { get; set; }
         public Instrument Instrument { get; set; }
 
         public async Task OnGet()
         {
-            var Categories = await _service.GetAllCategories();
+            Instruments = await _instrumentService.GetAll();
             string username = HttpContext.Request.Cookies["username"];
             ViewData["username"] = username;
         }
 
         // Called when a user adds something to their cart and is logged in.
-        public async Task OnPostAsync()
+        public async Task<IActionResult> OnPostAsync()
         {
+
             string userId = HttpContext.Request.Cookies["userId"];
-            if(userId == null) { throw new Exception("Please Log in to add items to cart."); }
-            CartModel exisitingCart = _context.Cart.Where(x => x.UserId == userId).SingleOrDefault();
+            Cart exisitingCart = _context.Cart.Where(x => x.UserId == userId).SingleOrDefault();
 
             if (exisitingCart != null)
             {
                 await CreateCartItem(Convert.ToInt32(Input.Id), exisitingCart.Id);
-                return;
+                
+                //Switching the "has been added" boolean to true to determine whether or not
+                //we display the Added to Cart button.
+                await hasBeenAdded(Input);
+                return Redirect("/");
             }
 
-            CartModel newCart = await CreateUserCartAsync(userId);
+            Cart newCart = await CreateUserCartAsync(userId);
             await CreateCartItem(Convert.ToInt32(Input.Id), newCart.Id);
-            return;
+
+            //Switching the "has been added" boolean to true to determine whether or not
+            // we display the Added to Cart button.
+            await hasBeenAdded(Input);
+            return Redirect("/");
         }
 
-        public async Task<CartModel> CreateUserCartAsync(string userId)
+        public async Task hasBeenAdded(CartInstrumentId input)
         {
-            CartModel newCart = new CartModel()
+            Instrument inst = await _context.Instrument.FindAsync(Convert.ToInt32(input.Id));
+            inst.HasBeenAdded = true;
+            Console.WriteLine(inst.HasBeenAdded);
+            await _instrumentService.Update(inst);
+        }
+
+        public async Task<Cart> CreateUserCartAsync(string userId)
+        {
+            Cart newCart = new Cart()
             {
                 UserId = userId
             };
@@ -78,6 +95,7 @@ namespace DoNotFret.Pages
                 InstrumentId = instrumentId,
                 CartId = cartId
             };
+
             _context.Entry(addingToCart).State = Microsoft.EntityFrameworkCore.EntityState.Added;
             await _context.SaveChangesAsync();
         }

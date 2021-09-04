@@ -9,6 +9,7 @@ namespace DoNotFret.Pages.Component
 {
     public class CartCount : ViewComponent
     {
+        public int CartCounter { get; set; } = 0;
         public IViewComponentResult Invoke()
         {
             return View();

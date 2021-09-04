@@ -1,4 +1,6 @@
-﻿using DoNotFret.Models;
+﻿using DoNotFret.Data;
+using DoNotFret.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +10,19 @@ namespace DoNotFret.Services
 {
     public class CategoryService : ICategory
     {
-        public Task<Instrument> Create(Category category)
+
+        private DoNotFretDbContext _context;
+
+        public CategoryService(DoNotFretDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+
+        public async Task<Category> Create(Category category)
+        {
+            _context.Entry(category).State = Microsoft.EntityFrameworkCore.EntityState.Added;
+            await _context.SaveChangesAsync();
+            return category;
         }
 
         public Task Delete(int id)
@@ -18,17 +30,17 @@ namespace DoNotFret.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<Instrument>> GetAll()
+        public async Task<List<Category>> GetAll()
+        {
+            return await _context.Category.ToListAsync();
+        }
+
+        public Task<Category> GetOne(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Instrument> GetOne(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Instrument> Update(Category category)
+        public Task<Category> Update(Category category)
         {
             throw new NotImplementedException();
         }

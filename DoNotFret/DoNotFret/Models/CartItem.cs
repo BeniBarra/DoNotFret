@@ -10,7 +10,7 @@ namespace DoNotFret.Models
     {
         public int CartId { get; set; }
         public int InstrumentId { get; set; }
-        public CartModel Cart { get; set; }
+        public Cart Cart { get; set; }
         public Instrument Instrument { get; set; }
     }
 }

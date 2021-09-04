@@ -4,14 +4,16 @@ using DoNotFret.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DoNotFret.Migrations
 {
     [DbContext(typeof(DoNotFretDbContext))]
-    partial class DoNotFretDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210903235027_cart")]
+    partial class cart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -165,9 +167,6 @@ namespace DoNotFret.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("HasBeenAdded")
-                        .HasColumnType("bit");
-
                     b.Property<string>("InstrumentType")
                         .HasColumnType("nvarchar(max)");
 
@@ -186,7 +185,6 @@ namespace DoNotFret.Migrations
                             Id = 1,
                             Brand = "Ibanez",
                             Description = "Natural Wood Finish, 6 string electric guitar",
-                            HasBeenAdded = false,
                             InstrumentType = "Guitar",
                             Material = "Basswood"
                         },
@@ -195,7 +193,6 @@ namespace DoNotFret.Migrations
                             Id = 2,
                             Brand = "Rickenbacker",
                             Description = "Cherry Red, 4 string electric bass",
-                            HasBeenAdded = false,
                             InstrumentType = "Bass",
                             Material = "Eastern hardrock Maple"
                         });
