@@ -23,14 +23,12 @@ namespace DoNotFret.Pages
         [BindProperty]
         public LoginData LoginData { get; set; }
 
-
-
         public void OnGet()
         {
 
         }
 
-        public async Task<ActionResult> OnPost()
+        public async Task<ActionResult> OnPostAsync()
         {
             var user = await _userService.Authenticate(LoginData.Username, LoginData.Password);
 
@@ -45,6 +43,7 @@ namespace DoNotFret.Pages
             // Cookie will expire in 7 days
             cookieOptions.Expires = new DateTimeOffset(DateTime.Now.AddDays(7));
             HttpContext.Response.Cookies.Append("username", user.Username.ToString(), cookieOptions);
+            HttpContext.Response.Cookies.Append("userId", user.Id.ToString(), cookieOptions);
 
             return Redirect("/");
         }

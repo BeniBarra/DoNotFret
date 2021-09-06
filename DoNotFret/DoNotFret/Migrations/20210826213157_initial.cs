@@ -47,20 +47,16 @@ namespace DoNotFret.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Instrument",
+                name: "Cart",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Brand = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Material = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    InstrumentType = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Instrument", x => x.Id);
+                    table.PrimaryKey("PK_Cart", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -169,6 +165,29 @@ namespace DoNotFret.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Instrument",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InstrumentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Brand = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Material = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CartId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Instrument", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Instrument_Cart_CartId",
+                        column: x => x.CartId,
+                        principalTable: "Cart",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
@@ -180,12 +199,17 @@ namespace DoNotFret.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Cart",
+                columns: new[] { "Id", "Username" },
+                values: new object[] { 1, "SorviusN" });
+
+            migrationBuilder.InsertData(
                 table: "Instrument",
-                columns: new[] { "Id", "Brand", "Description", "InstrumentType", "Material", "Name" },
+                columns: new[] { "Id", "Brand", "CartId", "Description", "InstrumentType", "Material" },
                 values: new object[,]
                 {
-                    { 1, "Ibanez", "Natural Wood Finish, 6 string electric guitar", "String", "Basswood", "Guitar" },
-                    { 2, "Rickenbacker", "Cherry Red, 4 string electric bass", "String", "Eastern hardrock Maple", "Bass" }
+                    { 1, "Ibanez", null, "Natural Wood Finish, 6 string electric guitar", "Guitar", "Basswood" },
+                    { 2, "Rickenbacker", null, "Cherry Red, 4 string electric bass", "Bass", "Eastern hardrock Maple" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -226,6 +250,11 @@ namespace DoNotFret.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Instrument_CartId",
+                table: "Instrument",
+                column: "CartId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -253,6 +282,9 @@ namespace DoNotFret.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Cart");
         }
     }
 }

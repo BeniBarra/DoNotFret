@@ -36,8 +36,6 @@ namespace DoNotFret
                 options.UseSqlServer(connectionString);
             });
 
-            services.AddTransient<I_Instrument, InstrumentService>();
-
             services.AddIdentity<AuthUser, IdentityRole>(options =>
             {
                 options.User.RequireUniqueEmail = true;
@@ -49,6 +47,8 @@ namespace DoNotFret
             services.AddAuthorization();
 
             services.AddTransient<IUserService, IdentityUserService>();
+            services.AddTransient<ICategory, CategoryService>();
+            services.AddTransient<I_Instrument, InstrumentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

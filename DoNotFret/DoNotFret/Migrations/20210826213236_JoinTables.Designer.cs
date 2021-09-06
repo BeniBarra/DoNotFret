@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoNotFret.Migrations
 {
     [DbContext(typeof(DoNotFretDbContext))]
-    [Migration("20210823032023_Migrate")]
-    partial class Migrate
+    [Migration("20210826213236_JoinTables")]
+    partial class JoinTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -96,6 +96,9 @@ namespace DoNotFret.Migrations
                     b.Property<string>("Brand")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("CartId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -105,10 +108,9 @@ namespace DoNotFret.Migrations
                     b.Property<string>("Material")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("CartId");
 
                     b.ToTable("Instrument");
 
@@ -118,18 +120,38 @@ namespace DoNotFret.Migrations
                             Id = 1,
                             Brand = "Ibanez",
                             Description = "Natural Wood Finish, 6 string electric guitar",
-                            InstrumentType = "String",
-                            Material = "Basswood",
-                            Name = "Guitar"
+                            InstrumentType = "Guitar",
+                            Material = "Basswood"
                         },
                         new
                         {
                             Id = 2,
                             Brand = "Rickenbacker",
                             Description = "Cherry Red, 4 string electric bass",
-                            InstrumentType = "String",
-                            Material = "Eastern hardrock Maple",
-                            Name = "Bass"
+                            InstrumentType = "Bass",
+                            Material = "Eastern hardrock Maple"
+                        });
+                });
+
+            modelBuilder.Entity("DoNotFret.Pages.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cart");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Username = "SorviusN"
                         });
                 });
 
@@ -287,6 +309,13 @@ namespace DoNotFret.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("DoNotFret.Models.Instrument", b =>
+                {
+                    b.HasOne("DoNotFret.Pages.Cart", null)
+                        .WithMany("CartItems")
+                        .HasForeignKey("CartId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -336,6 +365,11 @@ namespace DoNotFret.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DoNotFret.Pages.Cart", b =>
+                {
+                    b.Navigation("CartItems");
                 });
 #pragma warning restore 612, 618
         }

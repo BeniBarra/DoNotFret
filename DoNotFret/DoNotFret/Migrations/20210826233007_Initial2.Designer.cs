@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoNotFret.Migrations
 {
     [DbContext(typeof(DoNotFretDbContext))]
-    [Migration("20210822234926_initial")]
-    partial class initial
+    [Migration("20210826233007_Initial2")]
+    partial class Initial2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -86,6 +86,21 @@ namespace DoNotFret.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("DoNotFret.Models.CartItem", b =>
+                {
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("InstrumentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CartId", "InstrumentId");
+
+                    b.HasIndex("InstrumentId");
+
+                    b.ToTable("CartItem");
+                });
+
             modelBuilder.Entity("DoNotFret.Models.Instrument", b =>
                 {
                     b.Property<int>("Id")
@@ -105,9 +120,6 @@ namespace DoNotFret.Migrations
                     b.Property<string>("Material")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Instrument");
@@ -118,18 +130,38 @@ namespace DoNotFret.Migrations
                             Id = 1,
                             Brand = "Ibanez",
                             Description = "Natural Wood Finish, 6 string electric guitar",
-                            InstrumentType = "String",
-                            Material = "Basswood",
-                            Name = "Guitar"
+                            InstrumentType = "Guitar",
+                            Material = "Basswood"
                         },
                         new
                         {
                             Id = 2,
                             Brand = "Rickenbacker",
                             Description = "Cherry Red, 4 string electric bass",
-                            InstrumentType = "String",
-                            Material = "Eastern hardrock Maple",
-                            Name = "Bass"
+                            InstrumentType = "Bass",
+                            Material = "Eastern hardrock Maple"
+                        });
+                });
+
+            modelBuilder.Entity("DoNotFret.Pages.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cart");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            UserId = "1"
                         });
                 });
 
@@ -287,6 +319,25 @@ namespace DoNotFret.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("DoNotFret.Models.CartItem", b =>
+                {
+                    b.HasOne("DoNotFret.Pages.Cart", "Cart")
+                        .WithMany("Instrument")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DoNotFret.Models.Instrument", "Instrument")
+                        .WithMany()
+                        .HasForeignKey("InstrumentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Instrument");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -336,6 +387,11 @@ namespace DoNotFret.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DoNotFret.Pages.Cart", b =>
+                {
+                    b.Navigation("Instrument");
                 });
 #pragma warning restore 612, 618
         }

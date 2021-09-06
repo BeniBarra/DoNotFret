@@ -98,6 +98,11 @@ namespace AuthDemo.Auth.Services
         Roles = await userManager.GetRolesAsync(user)
       };
     }
-  }
+
+        public async Task SignOutAsync()
+        {
+            await signInManager.SignOutAsync();
+        }
+    }
 }
 

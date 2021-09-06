@@ -14,12 +14,14 @@ namespace DoNotFret.Controllers
     {
         private readonly I_Instrument _service;
 
+        public const string HOME_ROUTE = "home";
+
         public HomeController(I_Instrument instruments)
         {
             _service = instruments;
         }
 
-        public async Task<ActionResult<IEnumerable<Instrument>>> Index()
+        public async Task<ActionResult<IEnumerable<Instrument>>> HomeIndex()
         {
             var list = await _service.GetAll();
             return View(list);

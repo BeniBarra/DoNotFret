@@ -8,20 +8,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DoNotFret.Pages
 {
-    public class CartModel : PageModel
+    public class CategoryModel : PageModel
     {
-
         public void OnGet()
         {
+
         }
-
-
-    }
-
-    public class UserCart
-    {
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public IList<Instrument> CartItem { get; set; }
     }
 }

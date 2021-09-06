@@ -2,7 +2,7 @@
 
 namespace DoNotFret.Migrations
 {
-    public partial class Migrate : Migration
+    public partial class Initial2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

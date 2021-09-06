@@ -5,5 +5,6 @@ namespace DoNotFret.Models
   public class AuthUser : IdentityUser
   {
   }
+
 }
 
