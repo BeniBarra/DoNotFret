@@ -27,19 +27,24 @@ namespace DoNotFret.Pages
         public async void OnGet()
         {
             string userId = HttpContext.Request.Cookies["userId"];
-
             Cart exisitingCart = _context.Cart.Where(x => x.UserId == userId).FirstOrDefault();
 
             List<CartItem> CartItems = _context.CartItem.Where(c => c.CartId == exisitingCart.Id).ToList();
 
             // For every Instrument Id in cartitems, we pull the instrument via ID and add it to 
             // Instruments
+            List<Instrument> AllInstruments = await _service.GetAll();
 
-
-            Instrument addInst = new();
-            Instruments =  await _service.GetAll();
-
-
+            foreach(var inst in AllInstruments)
+            {
+                foreach(var CartItem in CartItems)
+                {
+                    if (inst.Id == CartItem.InstrumentId)
+                    {
+                        Instruments.Add(inst);
+                    }
+                }
+            }
             Console.WriteLine(exisitingCart);
         }
 
