@@ -18,7 +18,7 @@ namespace DoNotFret.Data
         public DbSet<Category> Category { get; set; }
 
         // Nav Properties
-        public DbSet<CartItem> CartItem { get; set; }
+        public DbSet<CartItem> CartItem { get; set; } 
 
         //constructor for out DbContext. Inserting options.
         public DoNotFretDbContext(DbContextOptions options) : base(options)
