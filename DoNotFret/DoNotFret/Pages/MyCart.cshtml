@@ -18,7 +18,8 @@
 		}
 		@if (User.Identity.IsAuthenticated)
 		{
-				@*<vc:cart-count></vc:cart-count>*@
+				<vc:cart-count></vc:cart-count>
+				<a class="navLinks" href="CheckOut">Check-Out</a>
 		}
 		<!--<select asp-for"Input.Mode" asp-items="Html.GetEnumSelectList<ColorScheme>()"</select> -->
 </div>

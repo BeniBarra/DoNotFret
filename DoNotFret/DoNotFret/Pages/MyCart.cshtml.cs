@@ -34,8 +34,6 @@ namespace DoNotFret.Pages
 
         public async Task OnGet()
         {
-            //Instruments = new List<Instrument
-
             string userId = HttpContext.Request.Cookies["userId"];
             Cart exisitingCart = _context.Cart.Where(x => x.UserId == userId).FirstOrDefault();
 
@@ -51,28 +49,24 @@ namespace DoNotFret.Pages
             }
         }
 
-        public async Task OnPost(int cartId, int instrumentId)
+        public async Task OnPost()
         {
             string userId = HttpContext.Request.Cookies["userId"];
             Cart exisitingCart = _context.Cart.Where(x => x.UserId == userId).FirstOrDefault();
+            await RemoveFromCart(exisitingCart.Id, Convert.ToInt32(Input.Id));
+            await OnGet();
+        }
 
-            List<CartItem> cartItems = new(); 
-
-            foreach(var cartItem in exisitingCart.Instruments)
+        public async Task RemoveFromCart(int cartId, int instId)
+        {
+            CartItem shoppingCart = new CartItem()
             {
-                cartItems.Add(cartItem);
-            }
+                CartId = cartId,
+                InstrumentId = instId
+            };
 
-            foreach(var instId in cartItems)
-            {
-                if (instId.InstrumentId == instrumentId)
-                {
-                    _context.Entry(instId).State = EntityState.Deleted;
-                    await _context.SaveChangesAsync();
-                    await hasBeenRemoved(Input);
-                    break;
-                }
-            }
+            _context.Entry(shoppingCart).State = EntityState.Deleted;
+            await hasBeenRemoved(Input);
             await _context.SaveChangesAsync();
         }
 

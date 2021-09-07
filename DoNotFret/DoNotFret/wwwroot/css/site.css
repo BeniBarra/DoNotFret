@@ -24,8 +24,8 @@ header {
 #headerText {
 	font-size: 1.75rem;
 	margin-top: -.75em;
-	  text-shadow: #260707c3 1.25px 1.25px 1px;
-  -webkit-font-smoothing: antialiased;
+	text-shadow: #260707c3 1.25px 1.25px 1px;
+	-webkit-font-smoothing: antialiased;
 }
 
 #headerSubtitle {
