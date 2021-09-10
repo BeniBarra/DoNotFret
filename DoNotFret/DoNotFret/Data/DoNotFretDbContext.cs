@@ -59,12 +59,27 @@ namespace DoNotFret.Data
                 new Category
                 {
                     Id = 1,
-                    Name = "Pianos",
+                    Name = "Piano",
                 },
                 new Category
                 {
                     Id = 2,
-                    Name = "Basses",
+                    Name = "Bass",
+                },
+                new Category
+                {
+                    Id = 3,
+                    Name = "Guitar",
+                },
+                new Category
+                {
+                    Id = 4,
+                    Name = "Drums",
+                },
+                new Category
+                {
+                    Id = 5,
+                    Name = "Accessories",
                 }
                 );
 

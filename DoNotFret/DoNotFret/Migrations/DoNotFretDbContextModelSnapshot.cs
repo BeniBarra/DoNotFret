@@ -140,12 +140,27 @@ namespace DoNotFret.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Pianos"
+                            Name = "Piano"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Basses"
+                            Name = "Bass"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Guitar"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Drums"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Accessories"
                         });
                 });
 
@@ -158,9 +173,6 @@ namespace DoNotFret.Migrations
 
                     b.Property<string>("Brand")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -175,8 +187,6 @@ namespace DoNotFret.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.ToTable("Instrument");
 
@@ -374,13 +384,6 @@ namespace DoNotFret.Migrations
                     b.Navigation("Instrument");
                 });
 
-            modelBuilder.Entity("DoNotFret.Models.Instrument", b =>
-                {
-                    b.HasOne("DoNotFret.Models.Category", null)
-                        .WithMany("Instruments")
-                        .HasForeignKey("CategoryId");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -433,11 +436,6 @@ namespace DoNotFret.Migrations
                 });
 
             modelBuilder.Entity("DoNotFret.Models.Cart", b =>
-                {
-                    b.Navigation("Instruments");
-                });
-
-            modelBuilder.Entity("DoNotFret.Models.Category", b =>
                 {
                     b.Navigation("Instruments");
                 });

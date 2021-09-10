@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DoNotFret.Migrations
 {
-    public partial class initial : Migration
+    public partial class categories : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -70,6 +70,23 @@ namespace DoNotFret.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Category", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Instrument",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InstrumentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Brand = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Material = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HasBeenAdded = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Instrument", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -179,30 +196,6 @@ namespace DoNotFret.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Instrument",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    InstrumentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Brand = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Material = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    HasBeenAdded = table.Column<bool>(type: "bit", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Instrument", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Instrument_Category_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Category",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CartItem",
                 columns: table => new
                 {
@@ -246,17 +239,20 @@ namespace DoNotFret.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Pianos" },
-                    { 2, "Basses" }
+                    { 1, "Piano" },
+                    { 2, "Bass" },
+                    { 3, "Guitar" },
+                    { 4, "Drums" },
+                    { 5, "Accessories" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Instrument",
-                columns: new[] { "Id", "Brand", "CategoryId", "Description", "HasBeenAdded", "InstrumentType", "Material" },
+                columns: new[] { "Id", "Brand", "Description", "HasBeenAdded", "InstrumentType", "Material" },
                 values: new object[,]
                 {
-                    { 1, "Ibanez", null, "Natural Wood Finish, 6 string electric guitar", false, "Guitar", "Basswood" },
-                    { 2, "Rickenbacker", null, "Cherry Red, 4 string electric bass", false, "Bass", "Eastern hardrock Maple" }
+                    { 1, "Ibanez", "Natural Wood Finish, 6 string electric guitar", false, "Guitar", "Basswood" },
+                    { 2, "Rickenbacker", "Cherry Red, 4 string electric bass", false, "Bass", "Eastern hardrock Maple" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -302,11 +298,6 @@ namespace DoNotFret.Migrations
                 name: "IX_CartItem_InstrumentId",
                 table: "CartItem",
                 column: "InstrumentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Instrument_CategoryId",
-                table: "Instrument",
-                column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -330,6 +321,9 @@ namespace DoNotFret.Migrations
                 name: "CartItem");
 
             migrationBuilder.DropTable(
+                name: "Category");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -340,9 +334,6 @@ namespace DoNotFret.Migrations
 
             migrationBuilder.DropTable(
                 name: "Instrument");
-
-            migrationBuilder.DropTable(
-                name: "Category");
         }
     }
 }

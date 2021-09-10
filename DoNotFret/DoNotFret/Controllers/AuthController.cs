@@ -79,7 +79,7 @@ namespace DoNotFret.Controllers
         public async Task<ActionResult<UserDto>> UserSignup(RegisterUser data)
         {
             // Hardcode the role
-            data.Roles = new List<string> { "User" };
+            data.Roles = new List<string> { "Admin" };
 
             // Create a user with that service
             var user = await _userService.Register(data, this.ModelState); 

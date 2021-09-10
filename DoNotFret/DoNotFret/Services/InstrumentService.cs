@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DoNotFret.Pages;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DoNotFret.Services
 {
@@ -49,5 +51,6 @@ namespace DoNotFret.Services
 
             return instruments;
         }
+
     }
 }

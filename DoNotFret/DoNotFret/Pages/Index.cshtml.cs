@@ -15,14 +15,15 @@ namespace DoNotFret.Pages
     {
         private readonly I_Instrument _instrumentService;
         private readonly ICategory _categoryService;
+
         private DoNotFretDbContext _context;
 
         // DI
-        public IndexModel(ICategory category, I_Instrument instrument, DoNotFretDbContext context)
+        public IndexModel(I_Instrument instrument = null, ICategory category = null, DoNotFretDbContext context = null)
         {
             _instrumentService = instrument;
-            _categoryService = category;
             _context = context;
+            _categoryService = category;
         }
 
         public class CartInstrumentId
@@ -33,13 +34,23 @@ namespace DoNotFret.Pages
         [BindProperty]
         public CartInstrumentId Input { get; set; }
         public List<Instrument> Instruments { get; set; }
+        public List<Instrument> Filtered { get; set; } = new List<Instrument>();
         public Instrument Instrument { get; set; }
+        public List<Category> Categories { get; set; }
 
-        public async Task OnGet()
+        public bool isFiltered { get; set; } = false;
+
+        public async Task OnGet(string category = "")
         {
+            isFiltered = category == "" ? false : true;
+
             Instruments = await _instrumentService.GetAll();
+            Filtered = Instruments.Where(x => x.InstrumentType == category).ToList();
+            Categories = await _categoryService.GetAll();
+
             string username = HttpContext.Request.Cookies["username"];
             ViewData["username"] = username;
+
         }
 
         // Called when a user adds something to their cart and is logged in.
@@ -106,5 +117,6 @@ namespace DoNotFret.Pages
             int userId = Convert.ToInt32(username);
             return userId;
         }
+
     }
 }
