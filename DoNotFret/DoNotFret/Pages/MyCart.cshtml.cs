@@ -8,6 +8,7 @@ using DoNotFret.Models;
 using DoNotFret.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace DoNotFret.Pages
 {
@@ -22,9 +23,16 @@ namespace DoNotFret.Pages
             _context = context;
         }
 
-        public List<Instrument> Instruments { get; set; }
+        public class CartInstrumentId
+        {
+            public string Id { get; set; }
+        }
 
-        public async void OnGet()
+        [BindProperty]
+        public CartInstrumentId Input { get; set; }
+        public List<Instrument> Instruments { get; private set; } = new List<Instrument>();
+
+        public async Task OnGet()
         {
             string userId = HttpContext.Request.Cookies["userId"];
             Cart exisitingCart = _context.Cart.Where(x => x.UserId == userId).FirstOrDefault();
@@ -33,26 +41,42 @@ namespace DoNotFret.Pages
 
             // For every Instrument Id in cartitems, we pull the instrument via ID and add it to 
             // Instruments
-            List<Instrument> AllInstruments = await _service.GetAll();
-
-            foreach(var inst in AllInstruments)
+            foreach (var cartId in CartItems)
             {
-                foreach(var CartItem in CartItems)
-                {
-                    if (inst.Id == CartItem.InstrumentId)
-                    {
-                        Instruments.Add(inst);
-                    }
-                }
+                Instrument inst = new();
+                inst = await _service.GetOne(cartId.InstrumentId);
+                Instruments.Add(inst);
             }
-            Console.WriteLine(exisitingCart);
         }
 
-        public void OnPost()
+        public async Task OnPost()
         {
-            //TODO: Checkout
+            string userId = HttpContext.Request.Cookies["userId"];
+            Cart exisitingCart = _context.Cart.Where(x => x.UserId == userId).FirstOrDefault();
+            await RemoveFromCart(exisitingCart.Id, Convert.ToInt32(Input.Id));
+            await OnGet();
+        }
+
+        public async Task RemoveFromCart(int cartId, int instId)
+        {
+            CartItem shoppingCart = new CartItem()
+            {
+                CartId = cartId,
+                InstrumentId = instId
+            };
+
+            _context.Entry(shoppingCart).State = EntityState.Deleted;
+            await hasBeenRemoved(Input);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task hasBeenRemoved(CartInstrumentId input)
+        {
+            Instrument inst = await _context.Instrument.FindAsync(Convert.ToInt32(input.Id));
+            inst.HasBeenAdded = false;
+            Console.WriteLine(inst.HasBeenAdded);
+            await _service.Update(inst);
         }
 
     }
-
 }
