@@ -8,6 +8,7 @@ using DoNotFret.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using DoNotFret.Pages.Component;
 
 namespace DoNotFret.Pages
 {
@@ -25,6 +26,8 @@ namespace DoNotFret.Pages
             _context = context;
             _categoryService = category;
         }
+
+        //public CartCount CartCount { get; set; } = new CartCount();
 
         public class CartInstrumentId
         {
