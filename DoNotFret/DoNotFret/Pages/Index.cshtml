@@ -29,10 +29,10 @@
 		<a class="navLinks" asp-controller="Home" asp-action="HomeIndex">Admin Page</a>
 
 		<div class="categories-container">
-		@foreach(var Category in Model.Categories)
-        {
+		@foreach (var Category in Model.Categories)
+		{
 			<form method="get">
-				<input type="hidden" name="category" value=@Category.Name/>
+				<input type="hidden" name="category" value=@Category.Name;>
 				<button class="listButton "type="submit">@Category.Name</button>
 			</form>
         }
