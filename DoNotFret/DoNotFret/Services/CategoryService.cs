@@ -11,7 +11,7 @@ namespace DoNotFret.Services
     public class CategoryService : ICategory
     {
 
-        private DoNotFretDbContext _context;
+        private readonly DoNotFretDbContext _context;
 
         public CategoryService(DoNotFretDbContext context)
         {

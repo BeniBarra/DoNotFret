@@ -33,7 +33,7 @@ namespace DoNotFret.Data
                 new Instrument
                 {
                     Id = 1,
-                    InstrumentType = "Guitar",
+                    CategoryId = 3, 
                     Brand = "Ibanez",
                     Material = "Basswood",
                     Description = "Natural Wood Finish, 6 string electric guitar",
@@ -42,7 +42,7 @@ namespace DoNotFret.Data
                 new Instrument
                 {
                     Id = 2,
-                    InstrumentType = "Bass",
+                    CategoryId = 2, 
                     Brand = "Rickenbacker",
                     Material = "Eastern hardrock Maple",
                     Description = "Cherry Red, 4 string electric bass",
@@ -81,7 +81,7 @@ namespace DoNotFret.Data
                     Id = 5,
                     Name = "Accessories",
                 }
-                );
+            );
 
             modelBuilder.Entity<CartItem>().HasKey(
                 cartItem => new { cartItem.CartId, cartItem.InstrumentId }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DoNotFret.Migrations
 {
-    public partial class categories : Migration
+    public partial class NewCategories : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -78,7 +78,7 @@ namespace DoNotFret.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    InstrumentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
                     Brand = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Material = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -248,11 +248,11 @@ namespace DoNotFret.Migrations
 
             migrationBuilder.InsertData(
                 table: "Instrument",
-                columns: new[] { "Id", "Brand", "Description", "HasBeenAdded", "InstrumentType", "Material" },
+                columns: new[] { "Id", "Brand", "CategoryId", "Description", "HasBeenAdded", "Material" },
                 values: new object[,]
                 {
-                    { 1, "Ibanez", "Natural Wood Finish, 6 string electric guitar", false, "Guitar", "Basswood" },
-                    { 2, "Rickenbacker", "Cherry Red, 4 string electric bass", false, "Bass", "Eastern hardrock Maple" }
+                    { 1, "Ibanez", 3, "Natural Wood Finish, 6 string electric guitar", false, "Basswood" },
+                    { 2, "Rickenbacker", 2, "Cherry Red, 4 string electric bass", false, "Eastern hardrock Maple" }
                 });
 
             migrationBuilder.CreateIndex(

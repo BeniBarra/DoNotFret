@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoNotFret.Migrations
 {
     [DbContext(typeof(DoNotFretDbContext))]
-    [Migration("20210910062644_categories")]
-    partial class categories
+    [Migration("20210912013923_NewCategories")]
+    partial class NewCategories
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -176,14 +176,14 @@ namespace DoNotFret.Migrations
                     b.Property<string>("Brand")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("HasBeenAdded")
                         .HasColumnType("bit");
-
-                    b.Property<string>("InstrumentType")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Material")
                         .HasColumnType("nvarchar(max)");
@@ -197,18 +197,18 @@ namespace DoNotFret.Migrations
                         {
                             Id = 1,
                             Brand = "Ibanez",
+                            CategoryId = 3,
                             Description = "Natural Wood Finish, 6 string electric guitar",
                             HasBeenAdded = false,
-                            InstrumentType = "Guitar",
                             Material = "Basswood"
                         },
                         new
                         {
                             Id = 2,
                             Brand = "Rickenbacker",
+                            CategoryId = 2,
                             Description = "Cherry Red, 4 string electric bass",
                             HasBeenAdded = false,
-                            InstrumentType = "Bass",
                             Material = "Eastern hardrock Maple"
                         });
                 });

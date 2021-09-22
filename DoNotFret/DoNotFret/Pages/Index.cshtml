@@ -32,7 +32,7 @@
 		@foreach (var Category in Model.Categories)
 		{
 			<form method="get">
-				<input type="hidden" name="category" value=@Category.Name;>
+				<input type="hidden" name="category" value=@Category.Id;>
 				<button class="listButton "type="submit">@Category.Name</button>
 			</form>
         }
@@ -45,14 +45,14 @@
 	<!--<select asp-for"Input.Mode" asp-items="Html.GetEnumSelectList<ColorScheme>()"</select> -->
 </div>
 
-@if (Model.Instruments != null && Model.isFiltered == false)
+@if (Model.Instruments != null && Model.IsFiltered == false)
 {
 	<div id="cardContainer">
 		@foreach (var inst in Model.Instruments)
 		{
 			<div class="list-element">
 				<form method="post">
-					<h4 id="list-title">@inst.InstrumentType</h4>
+					<h4 id="list-title">@inst.CategoryId</h4>
 					<ul>
 						<li class="list-items">@inst.Brand</li>
 						<li class="list-items">@inst.Material</li>
@@ -78,14 +78,14 @@
 	</div>
 }
 
-else if (Model.isFiltered == true)
+else if (Model.IsFiltered == true)
 	{
 	<div id="cardContainer">
 		@foreach (var inst in Model.Filtered)
 		{
 			<div class="list-element">
 				<form method="post">
-					<h4 id="list-title">@inst.InstrumentType</h4>
+					<h4 id="list-title">@inst.CategoryId</h4>
 					<ul>
 						<li class="list-items">@inst.Brand</li>
 						<li class="list-items">@inst.Material</li>

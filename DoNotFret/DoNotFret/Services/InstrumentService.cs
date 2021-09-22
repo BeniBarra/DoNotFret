@@ -12,7 +12,7 @@ namespace DoNotFret.Services
 {
     public class InstrumentService : I_Instrument
     {
-        private DoNotFretDbContext _context;
+        private readonly DoNotFretDbContext _context;
 
         public InstrumentService(DoNotFretDbContext context)
         {

@@ -72,9 +72,11 @@ namespace DoNotFret.Controllers
             if (name != null)
             {
                 //Set a cookie with the name in it.
-                CookieOptions cookieOptions = new CookieOptions();
-                // Cookie will expire in 7 days
-                cookieOptions.Expires = new DateTimeOffset(DateTime.Now.AddDays(7));
+                CookieOptions cookieOptions = new() 
+                {
+                    // Cookie will expire in 7 days
+                    Expires = new DateTimeOffset(DateTime.Now.AddDays(7))
+                };
                 HttpContext.Response.Cookies.Append("name", name, cookieOptions);
 
                 return Content("Cookie for name saved.");
