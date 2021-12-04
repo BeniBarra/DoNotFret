@@ -17,6 +17,7 @@ namespace DoNotFret.Pages
         private readonly I_Instrument _service;
         private DoNotFretDbContext _context;
 
+        // Dependency injection
         public MyCartModel(I_Instrument instruments, DoNotFretDbContext context = null)
         {
             _service = instruments;
@@ -30,6 +31,8 @@ namespace DoNotFret.Pages
 
         [BindProperty]
         public CartInstrumentId Input { get; set; }
+
+        // This list will be displayed to carts.
         public List<Instrument> Instruments { get; private set; } = new List<Instrument>();
 
         public async Task OnGet()
@@ -41,6 +44,8 @@ namespace DoNotFret.Pages
 
             // For every Instrument Id in cartitems, we pull the instrument via ID and add it to 
             // Instruments
+
+            // MOST OF THIS LOGIC IS THE SAME FOR ADDING A CATEGORY.
             foreach (var cartId in CartItems)
             {
                 Instrument inst = new();

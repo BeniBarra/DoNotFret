@@ -49,8 +49,8 @@ namespace DoNotFret.Pages
         {
             IsFiltered = category != 0;
 
+            //TODO: Use nav property of category and instrument to filter out the category.
             Instruments = await _instrumentService.GetAll();
-            Filtered = Instruments.Where(x => x.CategoryId == category).ToList();
             Categories = await _categoryService.GetAll();
 
             string username = HttpContext.Request.Cookies["username"];
@@ -74,7 +74,10 @@ namespace DoNotFret.Pages
                 return Redirect("/");
             }
 
+            // Since our existing cart is null because a cart was not associated with the user id
+            // Create a new cart and add the item to it.
             Cart newCart = await CreateUserCartAsync(userId);
+            // Using Join table properties.
             await CreateCartItem(Convert.ToInt32(Input.Id), newCart.Id);
 
             //Switching the "has been added" boolean to true to determine whether or not
@@ -87,7 +90,6 @@ namespace DoNotFret.Pages
         {
             Instrument inst = await _context.Instrument.FindAsync(Convert.ToInt32(input.Id));
             inst.HasBeenAdded = true;
-            Console.WriteLine(inst.HasBeenAdded);
             await _instrumentService.Update(inst);
         }
 
@@ -114,6 +116,7 @@ namespace DoNotFret.Pages
             _context.Entry(addingToCart).State = Microsoft.EntityFrameworkCore.EntityState.Added;
             await _context.SaveChangesAsync();
         }
+
 
         public int GetUserIdFromCookie()
         {

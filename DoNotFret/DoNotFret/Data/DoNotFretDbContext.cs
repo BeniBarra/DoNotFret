@@ -19,6 +19,7 @@ namespace DoNotFret.Data
 
         // Nav Properties
         public DbSet<CartItem> CartItem { get; set; } 
+        public DbSet<InstrumentCategory> InstrumentCategory { get; set; }
 
         //constructor for out DbContext. Inserting options.
         public DoNotFretDbContext(DbContextOptions options) : base(options)
@@ -33,7 +34,6 @@ namespace DoNotFret.Data
                 new Instrument
                 {
                     Id = 1,
-                    CategoryId = 3, 
                     Brand = "Ibanez",
                     Material = "Basswood",
                     Description = "Natural Wood Finish, 6 string electric guitar",
@@ -42,7 +42,6 @@ namespace DoNotFret.Data
                 new Instrument
                 {
                     Id = 2,
-                    CategoryId = 2, 
                     Brand = "Rickenbacker",
                     Material = "Eastern hardrock Maple",
                     Description = "Cherry Red, 4 string electric bass",
@@ -75,16 +74,15 @@ namespace DoNotFret.Data
                 {
                     Id = 4,
                     Name = "Drums",
-                },
-                new Category
-                {
-                    Id = 5,
-                    Name = "Accessories",
                 }
             );
 
             modelBuilder.Entity<CartItem>().HasKey(
                 cartItem => new { cartItem.CartId, cartItem.InstrumentId }
+            );
+
+            modelBuilder.Entity<InstrumentCategory>().HasKey(
+                instrumentCategory => new { instrumentCategory.InstrumentId, instrumentCategory.CategoryId }
             );
 
             // Creating our roles that we will assign users.

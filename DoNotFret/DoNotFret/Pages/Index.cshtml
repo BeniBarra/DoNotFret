@@ -5,38 +5,19 @@
 
 <h1 class="mainTitleText">User Home</h1>
 @if (User.Identity.IsAuthenticated)
-{<h1 class="mainTitleText">Welcome @ViewData["username"]</h1>}
+{<h1 class="mainTitleText">Welcome @ViewData["username"]!</h1>}
 
 <div id="link-container">
 	<a class="navLinks" asp-page="/Index">Home</a>
 	@if (User.Identity.IsAuthenticated)
 	{
 		<a class="navLinks" asp-controller="Auth" asp-action="Logout">Sign Out</a>
-		<div class="categories-container">
-		@foreach(var Category in Model.Categories)
-        {
-			<form method="get">
-				<input type="hidden" name="category" value=@Category.Name/>
-				<button class="listButton "type="submit">@Category.Name</button>
-			</form>
-        }
-		</div>
 	}
-	@if (User.Identity.IsAuthenticated == false)
+	@if (!User.Identity.IsAuthenticated)
 	{
 		<a class="navLinks" href="/userlogin">Sign In</a>
 		<a class="navLinks" href="/usersignup">Register</a>
 		<a class="navLinks" asp-controller="Home" asp-action="HomeIndex">Admin Page</a>
-
-		<div class="categories-container">
-		@foreach (var Category in Model.Categories)
-		{
-			<form method="get">
-				<input type="hidden" name="category" value=@Category.Id;>
-				<button class="listButton "type="submit">@Category.Name</button>
-			</form>
-        }
-		</div>
 	}
 	@if (User.Identity.IsAuthenticated)
 	{
@@ -52,7 +33,6 @@
 		{
 			<div class="list-element">
 				<form method="post">
-					<h4 id="list-title">@inst.CategoryId</h4>
 					<ul>
 						<li class="list-items">@inst.Brand</li>
 						<li class="list-items">@inst.Material</li>
@@ -69,7 +49,7 @@
 					}
 					else
 					{
-						<p>Log in to add items to your cart</p>
+						<p>Please log in to add items to your cart</p>
 					}
 					<br />
 				</form>
@@ -85,7 +65,6 @@ else if (Model.IsFiltered == true)
 		{
 			<div class="list-element">
 				<form method="post">
-					<h4 id="list-title">@inst.CategoryId</h4>
 					<ul>
 						<li class="list-items">@inst.Brand</li>
 						<li class="list-items">@inst.Material</li>
@@ -102,7 +81,7 @@ else if (Model.IsFiltered == true)
 					}
 					else
 					{
-						<p>Log in to add items to your cart</p>
+						<p>Please log in to add items to your cart</p>
 					}
 					<br />
 				</form>

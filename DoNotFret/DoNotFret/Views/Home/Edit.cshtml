@@ -2,7 +2,7 @@
 
 @using DoNotFret.Models
 
-<h2 class="mainTitleText">Edit the @Model.CategoryId</h2>
+<h2 class="mainTitleText">Edit the item</h2>
 <div id="link-container">
 	<a class="navLinks" asp-controller="Home" asp-action="Index">Home</a>
 </div>
@@ -10,7 +10,6 @@
 <form asp-controller="Home" asp-action="Update" method="post">
 	<label>
 		<span>Type</span>
-		<input asp-for="@Model.CategoryId" />
 	</label>
 
 	<label>

@@ -19,7 +19,7 @@
 		@if (User.Identity.IsAuthenticated)
 		{
 				<vc:cart-count></vc:cart-count>
-				<a class="navLinks" href="CheckOut">Check-Out</a>
+				<a class="navLinks" href="CheckOut">Check Out</a>
 		}
 		<!--<select asp-for"Input.Mode" asp-items="Html.GetEnumSelectList<ColorScheme>()"</select> -->
 </div>
@@ -31,7 +31,6 @@
 				{
 					<div class="list-element">
 							<form method="post">
-									<h4 id="list-title">@inst.CategoryId</h4>
 									<ul>
 											<li class="list-items">@inst.Brand</li>
 											<li class="list-items">@inst.Material</li>
