@@ -8,19 +8,26 @@ using DoNotFret.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using DoNotFret.Pages.Component;
 
 namespace DoNotFret.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly I_Instrument _service;
+        private readonly I_Instrument _instrumentService;
+        private readonly ICategory _categoryService;
+
         private DoNotFretDbContext _context;
 
-        public IndexModel(I_Instrument instruments, DoNotFretDbContext context)
+        // DI
+        public IndexModel(I_Instrument instrument = null, ICategory category = null, DoNotFretDbContext context = null)
         {
-            _service = instruments;
+            _instrumentService = instrument;
             _context = context;
+            _categoryService = category;
         }
+
+        //public CartCount CartCount { get; set; } = new CartCount();
 
         public class CartInstrumentId
         {
@@ -30,30 +37,57 @@ namespace DoNotFret.Pages
         [BindProperty]
         public CartInstrumentId Input { get; set; }
         public List<Instrument> Instruments { get; set; }
+        public List<Instrument> Filtered { get; set; } = new List<Instrument>();
         public Instrument Instrument { get; set; }
+        public List<Category> Categories { get; set; }
 
-        public async Task OnGet()
+        public bool isFiltered { get; set; } = false;
+
+        public async Task OnGet(string category = "")
         {
-            Instruments = await _service.GetAll();
+            isFiltered = category == "" ? false : true;
+
+            Instruments = await _instrumentService.GetAll();
+            Filtered = Instruments.Where(x => x.InstrumentType == category).ToList();
+            Categories = await _categoryService.GetAll();
+
             string username = HttpContext.Request.Cookies["username"];
             ViewData["username"] = username;
+
         }
 
-        public async Task OnPostAsync()
+        // Called when a user adds something to their cart and is logged in.
+        public async Task<IActionResult> OnPostAsync()
         {
+
             string userId = HttpContext.Request.Cookies["userId"];
-            if(userId == null) { throw new Exception("Please Log in to add items to cart"); }
             Cart exisitingCart = _context.Cart.Where(x => x.UserId == userId).SingleOrDefault();
 
             if (exisitingCart != null)
             {
                 await CreateCartItem(Convert.ToInt32(Input.Id), exisitingCart.Id);
-                return;
+                
+                //Switching the "has been added" boolean to true to determine whether or not
+                //we display the Added to Cart button.
+                await hasBeenAdded(Input);
+                return Redirect("/");
             }
 
             Cart newCart = await CreateUserCartAsync(userId);
             await CreateCartItem(Convert.ToInt32(Input.Id), newCart.Id);
-            return;
+
+            //Switching the "has been added" boolean to true to determine whether or not
+            // we display the Added to Cart button.
+            await hasBeenAdded(Input);
+            return Redirect("/");
+        }
+
+        public async Task hasBeenAdded(CartInstrumentId input)
+        {
+            Instrument inst = await _context.Instrument.FindAsync(Convert.ToInt32(input.Id));
+            inst.HasBeenAdded = true;
+            Console.WriteLine(inst.HasBeenAdded);
+            await _instrumentService.Update(inst);
         }
 
         public async Task<Cart> CreateUserCartAsync(string userId)
@@ -62,6 +96,7 @@ namespace DoNotFret.Pages
             {
                 UserId = userId
             };
+
             _context.Entry(newCart).State = Microsoft.EntityFrameworkCore.EntityState.Added;
             await _context.SaveChangesAsync();
             return newCart;
@@ -74,6 +109,7 @@ namespace DoNotFret.Pages
                 InstrumentId = instrumentId,
                 CartId = cartId
             };
+
             _context.Entry(addingToCart).State = Microsoft.EntityFrameworkCore.EntityState.Added;
             await _context.SaveChangesAsync();
         }
@@ -84,5 +120,6 @@ namespace DoNotFret.Pages
             int userId = Convert.ToInt32(username);
             return userId;
         }
+
     }
 }

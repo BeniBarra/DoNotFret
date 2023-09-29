@@ -24,8 +24,8 @@ header {
 #headerText {
 	font-size: 1.75rem;
 	margin-top: -.75em;
-	  text-shadow: #260707c3 1.25px 1.25px 1px;
-  -webkit-font-smoothing: antialiased;
+	text-shadow: #260707c3 1.25px 1.25px 1px;
+	-webkit-font-smoothing: antialiased;
 }
 
 #headerSubtitle {
@@ -75,6 +75,10 @@ li {
 	-webkit-font-smoothing: antialiased;
 }
 
+.categories-container {
+	display: flex;
+	flex-direction: row;
+}
 #cardContainer {
 	width:100%;
 	display: flex;
@@ -94,7 +98,7 @@ li {
 	margin-right: 1.5rem;
 }
 
-#listTitle {
+#list-title {
 	text-decoration: none;
 	color: black;
 	-webkit-font-smoothing: antialiased;
@@ -108,7 +112,7 @@ li {
 	box-shadow: #808080 0px 0px 8px;
 }
 
-#listButton {
+.listButton {
 	padding: 4px 8px 4px 8px;
 	background: antiquewhite;
 	font-family: 'Oswald', sans-serif;
@@ -116,7 +120,7 @@ li {
 	transition: 150ms;
 }
 
-#listButton:hover {
+.listButton:hover {
 	color:inherit;
 	padding: 4px 8px 4px 8px;
 	transition: 300ms ease-out;

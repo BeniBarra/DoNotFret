@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoNotFret.Migrations
 {
     [DbContext(typeof(DoNotFretDbContext))]
-    [Migration("20210826213236_JoinTables")]
-    partial class JoinTables
+    [Migration("20210910062644_categories")]
+    partial class categories
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -86,61 +86,14 @@ namespace DoNotFret.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("DoNotFret.Models.Instrument", b =>
+            modelBuilder.Entity("DoNotFret.Models.Cart", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Brand")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("CartId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("InstrumentType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Material")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CartId");
-
-                    b.ToTable("Instrument");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Brand = "Ibanez",
-                            Description = "Natural Wood Finish, 6 string electric guitar",
-                            InstrumentType = "Guitar",
-                            Material = "Basswood"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Brand = "Rickenbacker",
-                            Description = "Cherry Red, 4 string electric bass",
-                            InstrumentType = "Bass",
-                            Material = "Eastern hardrock Maple"
-                        });
-                });
-
-            modelBuilder.Entity("DoNotFret.Pages.Cart", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Username")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -151,7 +104,112 @@ namespace DoNotFret.Migrations
                         new
                         {
                             Id = 1,
-                            Username = "SorviusN"
+                            UserId = "1"
+                        });
+                });
+
+            modelBuilder.Entity("DoNotFret.Models.CartItem", b =>
+                {
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("InstrumentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CartId", "InstrumentId");
+
+                    b.HasIndex("InstrumentId");
+
+                    b.ToTable("CartItem");
+                });
+
+            modelBuilder.Entity("DoNotFret.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Category");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Piano"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Bass"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Guitar"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Drums"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Accessories"
+                        });
+                });
+
+            modelBuilder.Entity("DoNotFret.Models.Instrument", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Brand")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("HasBeenAdded")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("InstrumentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Material")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Instrument");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Brand = "Ibanez",
+                            Description = "Natural Wood Finish, 6 string electric guitar",
+                            HasBeenAdded = false,
+                            InstrumentType = "Guitar",
+                            Material = "Basswood"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Brand = "Rickenbacker",
+                            Description = "Cherry Red, 4 string electric bass",
+                            HasBeenAdded = false,
+                            InstrumentType = "Bass",
+                            Material = "Eastern hardrock Maple"
                         });
                 });
 
@@ -309,11 +367,23 @@ namespace DoNotFret.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("DoNotFret.Models.Instrument", b =>
+            modelBuilder.Entity("DoNotFret.Models.CartItem", b =>
                 {
-                    b.HasOne("DoNotFret.Pages.Cart", null)
-                        .WithMany("CartItems")
-                        .HasForeignKey("CartId");
+                    b.HasOne("DoNotFret.Models.Cart", "Cart")
+                        .WithMany("Instruments")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DoNotFret.Models.Instrument", "Instrument")
+                        .WithMany()
+                        .HasForeignKey("InstrumentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Instrument");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -367,9 +437,9 @@ namespace DoNotFret.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DoNotFret.Pages.Cart", b =>
+            modelBuilder.Entity("DoNotFret.Models.Cart", b =>
                 {
-                    b.Navigation("CartItems");
+                    b.Navigation("Instruments");
                 });
 #pragma warning restore 612, 618
         }

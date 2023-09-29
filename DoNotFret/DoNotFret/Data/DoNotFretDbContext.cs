@@ -15,10 +15,10 @@ namespace DoNotFret.Data
     {
         public DbSet<Instrument> Instrument { get; set; }
         public DbSet<Cart> Cart { get; set; }
+        public DbSet<Category> Category { get; set; }
 
         // Nav Properties
-
-        public DbSet<CartItem> CartItem { get; set; }
+        public DbSet<CartItem> CartItem { get; set; } 
 
         //constructor for out DbContext. Inserting options.
         public DoNotFretDbContext(DbContextOptions options) : base(options)
@@ -37,9 +37,8 @@ namespace DoNotFret.Data
                     Brand = "Ibanez",
                     Material = "Basswood",
                     Description = "Natural Wood Finish, 6 string electric guitar",
-                }); ;
+                },
 
-            modelBuilder.Entity<Instrument>().HasData(
                 new Instrument
                 {
                     Id = 2,
@@ -53,8 +52,36 @@ namespace DoNotFret.Data
                 new Cart
                 {
                     Id = 1,
-                    UserId = "1"
+                    UserId = "1",
                 });
+
+            modelBuilder.Entity<Category>().HasData(
+                new Category
+                {
+                    Id = 1,
+                    Name = "Piano",
+                },
+                new Category
+                {
+                    Id = 2,
+                    Name = "Bass",
+                },
+                new Category
+                {
+                    Id = 3,
+                    Name = "Guitar",
+                },
+                new Category
+                {
+                    Id = 4,
+                    Name = "Drums",
+                },
+                new Category
+                {
+                    Id = 5,
+                    Name = "Accessories",
+                }
+                );
 
             modelBuilder.Entity<CartItem>().HasKey(
                 cartItem => new { cartItem.CartId, cartItem.InstrumentId }

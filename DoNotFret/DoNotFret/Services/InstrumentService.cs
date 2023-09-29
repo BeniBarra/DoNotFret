@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DoNotFret.Pages;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DoNotFret.Services
 {
@@ -19,7 +21,7 @@ namespace DoNotFret.Services
 
         public async Task<Instrument> Create(Instrument instrument)
         {
-            _context.Entry(instrument).State = Microsoft.EntityFrameworkCore.EntityState.Added;
+            _context.Entry(instrument).State = EntityState.Added;
             await _context.SaveChangesAsync();
             return instrument;
         }
@@ -49,5 +51,6 @@ namespace DoNotFret.Services
 
             return instruments;
         }
+
     }
 }

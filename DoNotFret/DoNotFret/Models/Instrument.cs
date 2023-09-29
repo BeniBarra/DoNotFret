@@ -12,5 +12,6 @@ namespace DoNotFret.Models
         public string Brand { get; set; }
         public string Material { get; set; }
         public string Description { get; set; }
+        public bool HasBeenAdded { get; set; } = false;
     }
 }
